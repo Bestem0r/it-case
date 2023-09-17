@@ -27,6 +27,9 @@ h3 {
     font-weight: bold;
     color: white;
     cursor: pointer;
+    letter-spacing: 2px;
+    animation: pulse-animation 1.2s infinite ease-out;
+
 }
 
 .buttonIcon {
@@ -44,4 +47,13 @@ input {
     border-radius: 8px;
     padding: 16px;
     background: var(--background-color)
+}
+
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 0 16px rgba(0, 0, 0, 0);
+    }
 }

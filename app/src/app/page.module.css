@@ -2,6 +2,13 @@
     display: flex;
 }
 
+.threeModel {
+    margin-right: -4em;
+    margin-bottom: -8em;
+    margin-left: auto;
+    width: 600px;
+    height: 600px;
+}
 
 .welcomeContainer {
     display: flex;
@@ -25,8 +32,9 @@
 .ideasContainer {
     width: 50%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: -15em;
+    align-items: center;
 }
 
 .typewriter {
