@@ -1,6 +1,6 @@
 async function getProductsLike(shortName: string) {
   const products = fetch(
-    `https://apis.vinmonopolet.no/products/v0/details-normal?productShortNameContains=${shortName}`,
+    `https://apis.vinmonopolet.no/products/v0/details-normal?productShortNameContains=${shortName}&maxResults=10&changedSince=2023-01-01`,
     {
       method: "GET",
       headers: {
