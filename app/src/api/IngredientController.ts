@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { localIngredientEndpoint } from "../constants/constants";
+import { localIngredientEndpoint } from "../app/constants/constants";
 
 async function handleAddIngredient(
   name: string,

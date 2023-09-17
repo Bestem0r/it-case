@@ -1,8 +1,9 @@
 import { ChangeEvent, Dispatch, HtmlHTMLAttributes, useState } from "react";
-import { handleAddIngredient } from "../api/IngredientController";
+import { handleAddIngredient } from "../../api/IngredientController";
 
-import styles from './Ingredients.module.css'
-import {AddOutline} from "react-ionicons";
+import styles from "./Ingredients.module.css";
+import { AddOutline } from "react-ionicons";
+import { Ingredient } from "../constants/types";
 
 interface AddIngredientsProps {
   setRefetch: Dispatch<React.SetStateAction<boolean>>;
@@ -27,14 +28,29 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
   return (
     <>
       <div className={styles.inputContainer}>
-        <input style={{marginRight: "4px"}} type="text" placeholder="Name" onChange={handleNameChange}></input>
-        <input style={{marginLeft: "4px"}} type="number" step={0.5} onChange={handleAmountChange}></input>
-        <button style={{marginLeft: "8px"}} className="buttonIcon" onClick={addIngredient}>
+        <input
+          style={{ marginRight: "4px" }}
+          type="text"
+          placeholder="Name"
+          onChange={handleNameChange}
+        ></input>
+        <input
+          style={{ marginLeft: "4px" }}
+          type="number"
+          step={0.5}
+          onChange={handleAmountChange}
+        ></input>
+        <button
+          style={{ marginLeft: "8px" }}
+          className="buttonIcon"
+          onClick={addIngredient}
+        >
           <AddOutline
-              color={'#FFFFFF'}
-              title={"Add"}
-              height="24px"
-              width="24px"/>
+            color={"#FFFFFF"}
+            title={"Add"}
+            height="24px"
+            width="24px"
+          />
         </button>
       </div>
     </>
