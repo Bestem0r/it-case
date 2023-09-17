@@ -20,7 +20,6 @@ async function handleAddIngredient(
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Network response was not ok");
       }
       return response.json();
     })
@@ -51,7 +50,6 @@ function handleRemoveIngredient(
     .then((response) => {
       setRefetch(true);
       if (!response.ok) {
-        throw new Error("Network response was not ok");
       }
       return response;
     })
@@ -78,7 +76,6 @@ async function getAllIngredients() {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Network response was not ok");
       }
       return response.json();
     })

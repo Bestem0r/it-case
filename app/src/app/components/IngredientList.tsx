@@ -34,11 +34,6 @@ const IngredientList = ({
       setRefetch(false);
     });
     setLoading(true);
-
-    if (ingredientList)
-      fetchCocktailsAny(ingredientList, 10).then((response) =>
-        console.log(response)
-      );
   }, [refetch]);
 
   function handleIngredientRemove(id: number) {

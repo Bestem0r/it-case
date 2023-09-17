@@ -23,6 +23,7 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
 
   function addIngredient() {
     handleAddIngredient(name, amount, setRefetch);
+    setRefetch(true);
   }
 
   return (
