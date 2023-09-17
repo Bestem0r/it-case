@@ -166,18 +166,23 @@ const DrinkModal = ({ drink, isOpen, setIsOpen, vpData }: DrinkModalProps) => {
                     </div>
                   </div>
 
-                  {vpData &&
-                    vpData
-                      .filter((e: any) => e.productId)
-                      .map((e: any) => (
-                        <a
-                          href={`https://www.vinmonopolet.no/p/${e.productId}`}
-                          key={e.productId}
-                          target="_blank"
-                        >
-                          På vinmonopolet - {e.productShortName}
-                        </a>
-                      ))}
+                  {vpData && vpData.length > 0 && (
+                    <ul>
+                      {vpData
+                        .filter((e: any) => e.productId)
+                        .map((e: any) => (
+                          <li key={e.productId}>
+                            <a
+                              href={`https://www.vinmonopolet.no/p/${e.productId}`}
+                              target="_blank"
+                              rel="noopener noreferrer" // It's good practice to add this when using target="_blank"
+                            >
+                              På vinmonopolet - {e.productShortName}
+                            </a>
+                          </li>
+                        ))}
+                    </ul>
+                  )}
 
                   <div className="mt-4">
                     <button
@@ -229,7 +234,7 @@ const DrinkList = ({
       const promises = currentDrink.ingredients
         .filter(
           (ingredient: CocktailIngredient) =>
-            !ingredientList?.includes(ingredient?.name)
+            !ingredientList?.map((e) => e.name)?.includes(ingredient?.name)
         )
         .map((drink: CocktailIngredient) => getProductsLike(drink.name));
       Promise.all(promises)
@@ -240,6 +245,7 @@ const DrinkList = ({
               productId: result[0].basic.productId ?? null,
               productShortName: result[0].basic.productShortName ?? null,
             }));
+          console.log(VPData);
           setVPData(VPData);
         })
         .catch((error) => {
