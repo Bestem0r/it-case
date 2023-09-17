@@ -41,3 +41,81 @@
     font-size: 14px;
     font-weight: bold;
 }
+
+.drinkList {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.drinkCard {
+  background-color: #FAF3E0;
+  display: flex;
+  padding: 2rem;
+  border-radius: 30px;
+  gap: 5rem;
+  opacity: 0.95;
+  filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.2));
+}
+
+.drinkCardIngredientList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.drinkCard img {
+  border-radius: 50%;
+  width: 350px;
+  align-self: center;
+}
+
+.drinkCardRow {
+  display: flex;
+  border-bottom: 1px solid #b3b3b3;
+}
+
+.drinkCardRow:first {
+  border-top: 1px solid #b3b3b3;
+}
+
+.drinkCardName {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.drinkCardIngredientAmount {
+  flex-basis: 20%;
+  flex-grow: 1;
+}
+
+.drinkCard li {
+  margin: 1rem 0;
+}
+
+.drinkCardInfo {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+}
+
+.drinkLink {
+  position: absolute;
+  bottom: 0;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: 0.2s;
+  cursor: pointer;
+  padding-right: 0.5rem;
+}
+
+.drinkLink:hover {
+  gap: 0.8rem;
+  padding-right: 0rem;
+}
