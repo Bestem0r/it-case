@@ -46,7 +46,7 @@ const DrinkList = ({
       {drinkList && (
         <ul>
           {drinkList.map((drink: Cocktail) => {
-            return <>{drink.instructions}</>;
+            return <li key={drink.name}>{drink.instructions}</li>;
           })}
         </ul>
       )}
