@@ -29,6 +29,11 @@
     margin-top: -15em;
 }
 
+.typewriter {
+    font-size: 56px;
+    font-weight: bold;
+}
+
 .ingredientsContainer {
     height: 80vh;
     width: 100vw;

@@ -5,6 +5,8 @@ import { getAllIngredients } from "./api/IngredientController";
 import AddIngredients from "./components/AddIngredients";
 import IngredientList from "./components/IngredientList";
 
+import Typewriter from 'typewriter-effect';
+
 import styles from './page.module.css'
 import Image from "next/image";
 
@@ -18,8 +20,9 @@ export default function Home() {
     const ref = useRef<HTMLHeadingElement|null>(null);
 
     function scrollToIngredients() {
-
-        console.log("Scrolling")
+        if (ref.current) {
+            ref.current?.scrollIntoView({behavior: "smooth"});
+        }
     }
 
     return (
@@ -30,12 +33,20 @@ export default function Home() {
                 <div className={styles.welcomeContainer}>
 
                     <div className={styles.ideasContainer}>
-                        <h1>Cocktail Cove</h1>
+                        <Typewriter
+                            options={{
+                                strings: ['Margarita', 'Moscow Mule', 'Mojito', 'Spritz', 'Mimosa', 'Bloody Mary'],
+                                autoStart: true,
+                                loop: true,
+                                wrapperClassName: styles.typewriter,
+                                cursorClassName: styles.typewriter
+                            }}
+                        />
                         <h3>Find recipes for your favourite drinks</h3>
                         <button onClick={scrollToIngredients} style={{marginTop: "3em"}} className="buttonRounded">Check it out! </button>
                     </div>
 
-                    <div onClick={() => console.log("fsdjksfdlkjlfsdkj")} className={styles.downButton}>
+                    <div onClick={scrollToIngredients} className={styles.downButton}>
                         <h3>Try now</h3>
                         <Image src={downArrow} alt="Down" height={32} width={32}/>
                     </div>
@@ -43,8 +54,8 @@ export default function Home() {
                 </div>
 
 
-                <div className={styles.ingredientsContainer}>
-                    <h1 ref={ref}>Add your ingredients</h1>
+                <div  ref={ref} className={styles.ingredientsContainer}>
+                    <h1>Add your ingredients</h1>
                     <div style={{marginTop: "2em"}}>
                         <div className={styles.ingredientsInnerContainer}>
                             <AddIngredients setRefetch={setRefetch} />
