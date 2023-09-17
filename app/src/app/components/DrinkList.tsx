@@ -167,21 +167,24 @@ const DrinkModal = ({ drink, isOpen, setIsOpen, vpData }: DrinkModalProps) => {
                   </div>
 
                   {vpData && vpData.length > 0 && (
-                    <ul>
-                      {vpData
-                        .filter((e: any) => e.productId)
-                        .map((e: any) => (
-                          <li key={e.productId}>
-                            <a
-                              href={`https://www.vinmonopolet.no/p/${e.productId}`}
-                              target="_blank"
-                              rel="noopener noreferrer" // It's good practice to add this when using target="_blank"
-                            >
-                              På vinmonopolet - {e.productShortName}
-                            </a>
-                          </li>
-                        ))}
-                    </ul>
+                    <div className={styles.vpDataList}>
+                      <h2>På vinmonopolet:</h2>
+                      <ul>
+                        {vpData
+                          .filter((e: any) => e.productId)
+                          .map((e: any) => (
+                            <li key={e.productId}>
+                              <a
+                                href={`https://www.vinmonopolet.no/p/${e.productId}`}
+                                target="_blank"
+                                rel="noopener noreferrer" // It's good practice to add this when using target="_blank"
+                              >
+                                {e.productShortName}
+                              </a>
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
                   )}
 
                   <div className="mt-4">
@@ -232,10 +235,11 @@ const DrinkList = ({
     if (generateVPData && currentDrink) {
       setFetchingVP(true);
       const promises = currentDrink.ingredients
-        .filter(
-          (ingredient: CocktailIngredient) =>
-            !ingredientList?.map((e) => e.name)?.includes(ingredient?.name)
-        )
+        // .filter(
+        //   (ingredient: CocktailIngredient) =>
+        //     ingredientList?.map((e) => e.name)?.includes(ingredient?.name) ===
+        //     false
+        // )
         .map((drink: CocktailIngredient) => getProductsLike(drink.name));
       Promise.all(promises)
         .then((results) => {

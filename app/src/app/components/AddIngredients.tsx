@@ -1,8 +1,15 @@
-import {ChangeEvent, Dispatch, useEffect, useMemo, useRef, useState} from "react";
-import {handleAddIngredient} from "../../api/IngredientController";
+import {
+  ChangeEvent,
+  Dispatch,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { handleAddIngredient } from "../../api/IngredientController";
 
 import styles from "./Ingredients.module.css";
-import {AddOutline} from "react-ionicons";
+import { AddOutline } from "react-ionicons";
 import IngredientInput from "./IngredientInput";
 
 interface AddIngredientsProps {
@@ -14,7 +21,6 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
   const [name, setName] = useState("");
   const amountInput = useRef<HTMLInputElement | null>(null);
   const nameInput = useRef<HTMLInputElement | null>(null);
-
 
   function handleAmountChange(event: ChangeEvent<HTMLInputElement>) {
     setAmount(Number(event.target.value));
@@ -48,10 +54,11 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
         <div className={styles.inputWrapper}>
           <span className={styles.inputDescription}>Amount (Litre)</span>
           <input
-            style={{ marginLeft: "4px", width: "72px" }}
+            style={{ marginLeft: "4px", width: "100px", height: "40px" }}
             type="number"
             placeholder="Amount"
             step={0.5}
+            min={0}
             onChange={handleAmountChange}
             ref={amountInput}
           ></input>

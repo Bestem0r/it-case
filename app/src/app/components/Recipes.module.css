@@ -69,3 +69,19 @@
   gap: 0.8rem;
   padding-right: 0rem;
 }
+
+.vpDataList{
+  text-align: right;
+
+}
+
+.vpDataList h2{
+  font-size: larger;
+  font-weight: 650;
+  margin-bottom: .25em;
+}
+
+.vpDataList a{
+    color: rgb(6, 38, 88)
+  
+}
