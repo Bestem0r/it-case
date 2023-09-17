@@ -1,6 +1,11 @@
+import { Dispatch } from "react";
 import { localIngredientEndpoint } from "../constants/constants";
 
-function handleAddIngredient(name: string, amount: number) {
+async function handleAddIngredient(
+  name: string,
+  amount: number,
+  setRefetch: Dispatch<React.SetStateAction<boolean>>
+) {
   const body = {
     name: name,
     amount: amount,
@@ -21,6 +26,7 @@ function handleAddIngredient(name: string, amount: number) {
     })
     .then((data) => {
       console.log(data);
+      setRefetch(true);
     })
     .catch((error) => {
       console.error(
@@ -34,4 +40,30 @@ function handleUpdateIngredient() {}
 
 function handleRemoveIngredient() {}
 
-export default handleAddIngredient;
+async function getAllIngredients() {
+  const ingredients = fetch(localIngredientEndpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.error(
+        "There was a problem with the fetch operation:",
+        error.message
+      );
+    });
+
+  return ingredients;
+}
+
+export { handleAddIngredient, getAllIngredients };

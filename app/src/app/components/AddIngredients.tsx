@@ -1,7 +1,11 @@
-import { ChangeEvent, HtmlHTMLAttributes, useState } from "react";
-import handleAddIngredient from "../api/IngredientController";
+import { ChangeEvent, Dispatch, HtmlHTMLAttributes, useState } from "react";
+import { handleAddIngredient } from "../api/IngredientController";
 
-const AddIngredients = () => {
+interface AddIngredientsProps {
+  setRefetch: Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
   const [amount, setAmount] = useState(0);
   const [name, setName] = useState("");
 
@@ -14,13 +18,13 @@ const AddIngredients = () => {
   }
 
   function addIngredient() {
-    handleAddIngredient(name, amount);
+    handleAddIngredient(name, amount, setRefetch);
   }
 
   return (
     <>
+      <input type="text" placeholder="Name" onChange={handleNameChange}></input>
       <input type="number" step={0.5} onChange={handleAmountChange}></input>
-      <input type="text" onChange={handleNameChange}></input>
       <button onClick={addIngredient}>Legg til</button>
     </>
   );
