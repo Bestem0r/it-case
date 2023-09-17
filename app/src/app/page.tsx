@@ -1,16 +1,16 @@
 "use client";
 
-import {useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import AddIngredients from "./components/AddIngredients";
 import IngredientList from "./components/IngredientList";
 
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
 
 import styles from "./page.module.css";
 import Image from "next/image";
 
 import downArrow from "../../public/down-arrow-svgrepo-com.svg";
-import {Cocktail, Ingredient} from "./constants/types";
+import { Cocktail, Ingredient } from "./constants/types";
 import DrinkList from "./components/DrinkList";
 
 export default function Home() {
@@ -23,28 +23,42 @@ export default function Home() {
   const [generateDrinks, setGenerateDrinks] = useState(false);
   const ref = useRef<HTMLHeadingElement | null>(null);
 
-    function scrollToIngredients() {
-        if (ref.current) {
-            ref.current?.scrollIntoView({behavior: "smooth"});
-        }
+  const [stockDrinkList, setStockDrinkList] = useState([
+    "Margarita",
+    "Moscow Mule",
+    "Mojito",
+    "Spritz",
+    "Mimosa",
+    "Bloody Mary",
+    "Cosmopolitan",
+    "Martini",
+    "Whiskey Sour",
+    "Manhattan",
+  ]);
+
+  function scrollToIngredients() {
+    if (ref.current) {
+      ref.current?.scrollIntoView({ behavior: "smooth" });
     }
+  }
 
   return (
     <main className={styles.main}>
       <div>
-
         <div className={styles.welcomeContainer}>
           <div className={styles.ideasContainer}>
             <Typewriter
-                            options={{
-                                strings: ['Margarita', 'Moscow Mule', 'Mojito', 'Spritz', 'Mimosa', 'Bloody Mary'],
-                                autoStart: true,
-                                loop: true,
-                                wrapperClassName: styles.typewriter,
-                                cursorClassName: styles.typewriter
-                            }}
-                        />
-            <h3 style={{marginTop: "1em"}}>Find recipes for your favourite drinks 🍸</h3>
+              options={{
+                strings: stockDrinkList,
+                autoStart: true,
+                loop: true,
+                wrapperClassName: styles.typewriter,
+                cursorClassName: styles.typewriter,
+              }}
+            />
+            <h3 style={{ marginTop: "1em" }}>
+              Find recipes for your favourite drinks 🍸
+            </h3>
             <button
               onClick={scrollToIngredients}
               style={{ marginTop: "3em" }}
@@ -54,10 +68,7 @@ export default function Home() {
             </button>
           </div>
 
-          <div
-            onClick={scrollToIngredients}
-            className={styles.downButton}
-          >
+          <div onClick={scrollToIngredients} className={styles.downButton}>
             <h3>TRY NOW</h3>
             <Image src={downArrow} alt="Down" height={32} width={32} />
           </div>
@@ -95,6 +106,8 @@ export default function Home() {
             ingredientList={ingredientList}
             drinkList={drinkList}
             setDrinkList={setDrinkList}
+            stockDrinkList={stockDrinkList}
+            setStockDrinkList={setStockDrinkList}
           />
         </div>
       </div>

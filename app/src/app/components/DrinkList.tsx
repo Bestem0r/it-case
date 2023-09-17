@@ -1,6 +1,6 @@
-import {Dispatch, useEffect, useState,} from "react";
-import {Cocktail, Ingredient} from "../constants/types";
-import {fetchCocktailsAny} from "@/api/fetchCocktails";
+import { Dispatch, useEffect, useState } from "react";
+import { Cocktail, Ingredient } from "../constants/types";
+import { fetchCocktailsAny } from "@/api/fetchCocktails";
 
 interface AddIngredientsProps {
   generateDrinks: boolean;
@@ -8,6 +8,8 @@ interface AddIngredientsProps {
   ingredientList: Ingredient[] | null;
   drinkList: Cocktail[] | null;
   setDrinkList: Dispatch<React.SetStateAction<Cocktail[] | null>>;
+  stockDrinkList: string[];
+  setStockDrinkList: Dispatch<React.SetStateAction<string[]>>;
 }
 
 const DrinkList = ({
@@ -16,6 +18,8 @@ const DrinkList = ({
   drinkList,
   setGenerateDrinks,
   setDrinkList,
+  stockDrinkList,
+  setStockDrinkList,
 }: AddIngredientsProps) => {
   const [fetchingDrinks, setFetchingDrinks] = useState(true);
 
@@ -24,6 +28,10 @@ const DrinkList = ({
       setFetchingDrinks(true);
       fetchCocktailsAny(ingredientList, 10).then((data) => {
         setDrinkList(data);
+        setStockDrinkList((stockDrinkList) => [
+          ...stockDrinkList,
+          ...data.map((e: Cocktail) => e.name),
+        ]);
         setFetchingDrinks(false);
         setGenerateDrinks(false);
       });
