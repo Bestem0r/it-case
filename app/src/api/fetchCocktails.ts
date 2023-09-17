@@ -1,4 +1,4 @@
-import {Cocktail, CocktailIngredient, Ingredient} from "@/app/constants/types";
+import {Cocktail, CocktailIngredient, Ingredient, RawCocktail, UnpopulatedRawCocktail} from "@/app/constants/types";
 
 const API_KEY = "9973533";
 const API_URL = `https://www.thecocktaildb.com/api/json/v2/${API_KEY}/`;
@@ -20,15 +20,24 @@ function pickRandomItems<T>(list: T[], n: number): T[] {
   return pickedItems;
 }
 
-async function populateCocktail(cocktail: any): Promise<Cocktail> {
-  const response = await fetch(`${API_URL}lookup.php?i=${cocktail.idDrink}`);
-  const data = (await response.json())["drinks"][0];
+export async function fetchCocktailsFromIngredients(ingredients: Ingredient[]) {
+  const response = await fetch(`${API_URL}filter.php?i=${ingredients.map(ingredient => ingredient.name).join(',')}`);
+  return (await response.json())["drinks"] as UnpopulatedRawCocktail[];
+}
+
+export async function fetchCocktailFromId(id: string) {
+  const response = await fetch(`${API_URL}lookup.php?i=${id}`);
+  return (await response.json())["drinks"][0] as RawCocktail;
+}
+
+async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cocktail> {
+  const data = await fetchCocktailFromId(cocktail.idDrink);
 
   return {
     name: data.strDrink,
     thumbnail: data.strDrinkThumb,
     instructions: data.strInstructions,
-    ingredients: [
+    ingredients: ([
       { name: data.strIngredient1, amount: data.strMeasure1},
       { name: data.strIngredient2, amount: data.strMeasure2},
       { name: data.strIngredient3, amount: data.strMeasure3},
@@ -44,23 +53,22 @@ async function populateCocktail(cocktail: any): Promise<Cocktail> {
       { name: data.strIngredient13, amount: data.strMeasure13},
       { name: data.strIngredient14, amount: data.strMeasure14},
       { name: data.strIngredient15, amount: data.strMeasure15}
-    ] as CocktailIngredient[]
+    ] as CocktailIngredient[]).filter(ingredient => ingredient.name != null)
   };
 }
 
-async function populateCocktails(cocktails: any[]) {
+async function populateCocktails(cocktails: UnpopulatedRawCocktail[]) {
   const promises = cocktails.map(cocktail => populateCocktail(cocktail));
   const responses = await Promise.all(promises);
   return responses;
 }
 
-async function fetchCocktailsAll(ingredients: Ingredient[]): Promise<Cocktail[]> {
-    const response = await fetch(`${API_URL}filter.php?i=${ingredients.map(ingredient => ingredient.name).join(',')}`);
-    const cocktails = (await response.json())["drinks"] as any[];
-    const randomCocktails = pickRandomItems(cocktails, 10);
-    return populateCocktails(randomCocktails);
+export async function fetchCocktailsAll(ingredients: Ingredient[], count: number): Promise<Cocktail[]> {
+  const cocktails = await fetchCocktailsFromIngredients(ingredients);
+  const randomCocktails = pickRandomItems(cocktails, count);
+  return populateCocktails(randomCocktails);
 }
 
-export async function fetchCocktailsAny(ingredients: Ingredient[]): Promise<Cocktail[]>{
-  return fetchCocktailsAll(ingredients);
+export async function fetchCocktailsAny(ingredients: Ingredient[], count: number): Promise<Cocktail[]>{
+  return fetchCocktailsAll(ingredients, count);
 }
