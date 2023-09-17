@@ -1,3 +1,5 @@
+import Ingredient from "@/app/constants/types";
+
 const API_KEY = "7d1tR1OEfdlpqqt8lE6cjQ==APKc86iendGIjdmB";
 const API_URL = `https://api.api-ninjas.com/v1/cocktail`;
 
@@ -19,8 +21,8 @@ function getCombinations<T>(arr: T[]): T[][] {
   return result;
 }
 
-export async function fetchCocktailsAll(ingredients) {
-    const response = await fetch(`${API_URL}?ingredients=${ingredients.join(',')}`, {
+export async function fetchCocktailsAll(ingredients: Ingredient[]) {
+    const response = await fetch(`${API_URL}?ingredients=${ingredients.map(ingredient => ingredient.name).join(',')}`, {
       headers: {
         'X-Api-Key': API_KEY
       }
@@ -28,7 +30,7 @@ export async function fetchCocktailsAll(ingredients) {
     return response.json();
 }
 
-export async function fetchCocktailsAny(ingredients) {
+export async function fetchCocktailsAny(ingredients: Ingredient[]) {
   const combinations = getCombinations(ingredients); 
 
   const promises = combinations.map((combo) => fetchCocktailsAll(combo));;
