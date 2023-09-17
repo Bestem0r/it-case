@@ -1,7 +1,11 @@
+"use client";
+
+import AddIngredients from "./components/AddIngredients";
+
 export default function Home() {
   return (
-      <main>
-        <h1>Hello world</h1>
-      </main>
-  )
+    <main>
+      <AddIngredients />
+    </main>
+  );
 }
