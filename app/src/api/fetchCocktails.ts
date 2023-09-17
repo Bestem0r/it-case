@@ -1,4 +1,5 @@
 import {Cocktail, CocktailIngredient, Ingredient, RawCocktail, UnpopulatedRawCocktail} from "@/app/constants/types";
+import { abort } from "process";
 
 const API_KEY = "9973533";
 const API_URL = `https://www.thecocktaildb.com/api/json/v2/${API_KEY}/`;
@@ -75,5 +76,43 @@ export async function fetchCocktailsAll(ingredients: Ingredient[], count: number
 }
 
 export async function fetchCocktailsAny(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]>{
-  return fetchCocktailsAll(ingredients, count, alcoholic);
+  function getAllSubsets<T>(arr: T[]): T[][] {
+    const subsets: T[][] = [[]];
+
+    for (const element of arr) {
+      const newSubsets = subsets.map((subset) => [...subset, element]);
+      subsets.push(...newSubsets);
+    }
+
+    return subsets.sort((a, b) => b.length - a.length);
+  }
+
+  const fetchedCocktails = await fetchCocktailsFromIngredients(ingredients, alcoholic);
+  const cocktails = pickRandomItems(fetchedCocktails, count);
+
+  if (cocktails.length == count) {
+    return populateCocktails(cocktails);
+  }
+
+  const ingredientSubsets = getAllSubsets(ingredients).slice(1);
+  const drinkSet = new Set();
+  cocktails.forEach(cocktail => drinkSet.add(cocktail.idDrink));
+
+  let index = 0;
+  while (index < ingredientSubsets.length-1 && cocktails.length < count) {
+    const _fetchedCocktails = await fetchCocktailsFromIngredients(ingredientSubsets[index], alcoholic); 
+    const _cocktails = pickRandomItems(_fetchedCocktails, count - cocktails.length);
+
+    for (let i = 0; i < _cocktails.length && cocktails.length < count; i++) {
+      if (drinkSet.has(_cocktails[i].idDrink)) {
+        continue;
+      }
+
+      drinkSet.add(_cocktails[i].idDrink);
+      cocktails.push(_cocktails[i]);
+    }
+    index += 1;
+  }
+
+  return populateCocktails(cocktails);
 }
