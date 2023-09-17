@@ -1,9 +1,17 @@
+"use client";
+
+import { useState } from "react";
+import { getAllIngredients } from "./api/IngredientController";
+import AddIngredients from "./components/AddIngredients";
+import IngredientList from "./components/IngredientList";
+
 import styles from './page.module.css'
 import Image from "next/image";
 
 import downArrow from '../../public/down-arrow-svgrepo-com.svg'
 
 export default function Home() {
+  const [refetch, setRefetch] = useState<boolean>(false);
   return (
       <main>
 
