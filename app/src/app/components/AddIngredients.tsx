@@ -1,8 +1,9 @@
-import {ChangeEvent, Dispatch, useRef, useState} from "react";
+import {ChangeEvent, Dispatch, useEffect, useMemo, useRef, useState} from "react";
 import {handleAddIngredient} from "../../api/IngredientController";
 
 import styles from "./Ingredients.module.css";
 import {AddOutline} from "react-ionicons";
+import IngredientInput from "./IngredientInput";
 
 interface AddIngredientsProps {
   setRefetch: Dispatch<React.SetStateAction<boolean>>;
@@ -13,6 +14,7 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
   const [name, setName] = useState("");
   const amountInput = useRef<HTMLInputElement | null>(null);
   const nameInput = useRef<HTMLInputElement | null>(null);
+
 
   function handleAmountChange(event: ChangeEvent<HTMLInputElement>) {
     setAmount(Number(event.target.value));
@@ -40,14 +42,7 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
       <div className={styles.inputContainer}>
         <div className={styles.inputWrapper} style={{ width: "100%" }}>
           <span className={styles.inputDescription}>Ingredient</span>
-          <input
-            style={{ marginRight: "4px" }}
-            type="text"
-            placeholder="Name"
-            onChange={handleNameChange}
-            ref={nameInput}
-            onKeyDown={handleKeyDown}
-          ></input>
+          <IngredientInput setName={setName} name={name} />
         </div>
 
         <div className={styles.inputWrapper}>
