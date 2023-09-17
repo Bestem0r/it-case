@@ -11,13 +11,17 @@ import Ingredient from "../constants/types";
 interface AddIngredientsProps {
   refetch: boolean;
   setRefetch: Dispatch<React.SetStateAction<boolean>>;
+  ingredientList: Ingredient[] | null;
+  setIngredientList: Dispatch<React.SetStateAction<Ingredient[] | null>>;
 }
 
-const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
+const IngredientList = ({
+  refetch,
+  setRefetch,
+  ingredientList,
+  setIngredientList,
+}: AddIngredientsProps) => {
   const [loading, setLoading] = useState(true);
-  const [ingredientList, setIngredientList] = useState<Ingredient[] | null>(
-    null
-  );
 
   useEffect(() => {
     getAllIngredients().then((response) => {
