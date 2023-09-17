@@ -22,6 +22,12 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
     setName(String(event.target.value));
   }
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      addIngredient();
+    }
+  }
+
   function addIngredient() {
     handleAddIngredient(name, amount, setRefetch);
     setRefetch(true);
@@ -40,6 +46,7 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
             placeholder="Name"
             onChange={handleNameChange}
             ref={nameInput}
+            onKeyDown={handleKeyDown}
           ></input>
         </div>
 
