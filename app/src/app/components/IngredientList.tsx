@@ -39,13 +39,16 @@ const IngredientList = ({
       {/* {loading && "Ingredients are loading"} */}
       {ingredientList && (
         <>
-          <span className={styles.inputDescription}>Your ingredients</span>
+          {
+            ingredientList.length > 0 &&
+              <span  className={styles.inputDescription}>Your ingredients</span>
+          }
 
           <ul className={styles.ul}>
             {ingredientList.map((ingredient: Ingredient) => {
               return (
                 <li className={styles.li} key={ingredient.id}>
-                  {ingredient.name} - {ingredient.amount} L{" "}
+                  {ingredient.name} {ingredient.amount > 0 && " - " + ingredient.amount + " L"} {" "}
                   <div
                     style={{
                       marginLeft: "auto",

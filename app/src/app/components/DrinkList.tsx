@@ -1,18 +1,8 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  HtmlHTMLAttributes,
-  useEffect,
-  useState,
-} from "react";
-import {
-  getAllIngredients,
-  handleRemoveIngredient,
-} from "../../api/IngredientController";
-import { Cocktail, Ingredient } from "../constants/types";
-import { fetchCocktailsAny } from "@/api/fetchCocktails";
+import {Dispatch, useEffect, useState,} from "react";
+import {Cocktail, Ingredient} from "../constants/types";
+import {fetchCocktailsAny} from "@/api/fetchCocktails";
 import styles from "./Recipes.module.css";
-import { ArrowForward } from "react-ionicons";
+import {ArrowForward} from "react-ionicons";
 
 interface AddIngredientsProps {
   generateDrinks: boolean;
@@ -40,7 +30,7 @@ const DrinkCard = ({drink}: DrinkCardProps) => {
             </div>
           )}
         </div>
-        <p className={styles.drinkButton}><span>Read more</span><ArrowForward height="24px"/></p>
+        <p className={styles.drinkButton}><span style={{marginBottom: "6px"}}>Read more</span><ArrowForward height="24px"/></p>
       </div>
     </div>
   )
@@ -68,7 +58,7 @@ const DrinkList = ({
 
   return (
     <>
-      {fetchingDrinks && "Loading"}
+      {fetchingDrinks && ""}
       {drinkList && (
         <div className={styles.drinkList}>
           {drinkList.map((drink: Cocktail) => <DrinkCard drink={drink}/>)}

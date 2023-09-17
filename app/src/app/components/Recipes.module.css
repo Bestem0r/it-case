@@ -6,21 +6,20 @@
 
 .drinkCard {
   position: relative;
-  background-color: #FAF3E0;
+  background-color: rgba(239, 226, 220, 0.6);
   display: flex;
-  padding: 2rem;
+  padding: 4rem 3rem;
   border-radius: 30px;
   gap: 5rem;
-  opacity: 0.95;
-  filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.15));
   align-items: center;
 }
 
 .drinkCardIngredientList {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin: 1rem 0;
+  margin: 2rem 0;
+  border-top: 1px solid #676767;
 }
 
 .drinkCard img {
@@ -31,12 +30,9 @@
 
 .drinkCardRow {
   display: flex;
-  border-bottom: 1px solid #b3b3b3;
+  border-bottom: 1px solid #676767;
   justify-content: space-between;
-}
-
-.drinkCardRow:first {
-  border-top: 1px solid #b3b3b3;
+  padding: 12px;
 }
 
 .drinkCardName {
