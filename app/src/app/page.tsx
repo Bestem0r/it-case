@@ -4,7 +4,7 @@ import {useRef, useState} from "react";
 import AddIngredients from "./components/AddIngredients";
 import IngredientList from "./components/IngredientList";
 
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
 
 import styles from "./page.module.css";
 import Image from "next/image";
@@ -13,28 +13,24 @@ import downArrow from "../../public/down-arrow-svgrepo-com.svg";
 import {Cocktail, Ingredient} from "./constants/types";
 import DrinkList from "./components/DrinkList";
 
-import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-
+import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
 import {Canvas, useFrame, useLoader} from "react-three-fiber";
 import useScrollSnap from "react-use-scroll-snap";
 
 function Scene() {
+  const boxRef = useRef();
 
-    const boxRef = useRef();
+  useFrame(() => {
+    if (boxRef.current) {
+      boxRef.current.rotation.y += 0.012;
+      boxRef.current.rotation.z = 0.12;
+    }
+  });
 
-    useFrame(() => {
-        if (boxRef.current) {
-            boxRef.current.rotation.y += 0.012;
-            boxRef.current.rotation.z = 0.12;
-        }
-    });
-
-    const gltf = useLoader(GLTFLoader, '/scene.gltf')
-    return <primitive ref={boxRef} object={gltf.scene} />
+  const gltf = useLoader(GLTFLoader, "/scene.gltf");
+  return <primitive ref={boxRef} object={gltf.scene} />;
 }
-
-
 
 export default function Home() {
   const [refetch, setRefetch] = useState<boolean>(false);
@@ -47,62 +43,66 @@ export default function Home() {
   const ingredientsRef = useRef<HTMLHeadingElement | null>(null);
   const recipesRef = useRef<HTMLHeadingElement | null>(null);
 
-    function scrollToIngredients() {
-        if (ingredientsRef.current) {
-            ingredientsRef.current?.scrollIntoView({behavior: "smooth"});
-        }
+  function scrollToIngredients() {
+    if (ingredientsRef.current) {
+      ingredientsRef.current?.scrollIntoView({ behavior: "smooth" });
     }
+  }
 
-    function scrollToRecipes() {
-        if (recipesRef.current) {
-            recipesRef.current?.scrollIntoView({behavior: "smooth"});
-        }
+  function scrollToRecipes() {
+    if (recipesRef.current) {
+      recipesRef.current?.scrollIntoView({ behavior: "smooth" });
     }
+  }
 
-    const scrollRef = useRef(null);
-    useScrollSnap({ ref: scrollRef, duration: 50, delay: 0 });
+  const scrollRef = useRef(null);
+  useScrollSnap({ ref: scrollRef, duration: 50, delay: 0 });
 
   return (
     <main className={styles.main}>
       <div ref={scrollRef}>
-
         <div className={styles.welcomeContainer}>
           <div className={styles.ideasContainer}>
-              <div >
-                  <Typewriter
-                      options={{
-                          strings: ['Margarita', 'Moscow Mule', 'Mojito', 'Spritz', 'Mimosa', 'Bloody Mary'],
-                          autoStart: true,
-                          loop: true,
-                          wrapperClassName: styles.typewriter,
-                          cursorClassName: styles.typewriter
-                      }}
-                  />
-                  <h3 style={{marginTop: "1em"}}>Find Drink Recipes from Ingredients You Already Have</h3>
-                  <button
-                      onClick={scrollToIngredients}
-                      style={{ marginTop: "3em" }}
-                      className="buttonRounded"
-                  >
-                      CHECK IT OUT{" "}
-                  </button>
-              </div>
+            <div>
+              <Typewriter
+                options={{
+                  strings: [
+                    "Margarita",
+                    "Moscow Mule",
+                    "Mojito",
+                    "Spritz",
+                    "Mimosa",
+                    "Bloody Mary",
+                  ],
+                  autoStart: true,
+                  loop: true,
+                  wrapperClassName: styles.typewriter,
+                  cursorClassName: styles.typewriter,
+                }}
+              />
+              <h3 style={{ marginTop: "1em" }}>
+                Find Drink Recipes from Ingredients You Already Have
+              </h3>
+              <button
+                onClick={scrollToIngredients}
+                style={{ marginTop: "3em" }}
+                className="buttonRounded"
+              >
+                CHECK IT OUT{" "}
+              </button>
+            </div>
 
-              <div className={styles.threeModel}>
-                  <Canvas camera={{zoom: 1.5}}>
-                      <ambientLight intensity={0.5} />
-                      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-                      <pointLight position={[-10, -10, -10]} />
-                      <Scene />
-                  </Canvas>
-              </div>
-
+            <div className={styles.threeModel}>
+              <Canvas camera={{ zoom: 1.5 }}>
+                <ambientLight intensity={0.5} />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+                <pointLight position={[-10, -10, -10]} />
+                <Scene />
+              </Canvas>
+            </div>
           </div>
 
-          <div
-            onClick={scrollToIngredients}
-            className={styles.downButton}
-          >
+          <div onClick={scrollToIngredients} className={styles.downButton}>
             <h3>TRY NOW</h3>
             <Image src={downArrow} alt="Down" height={32} width={32} />
           </div>
@@ -124,7 +124,7 @@ export default function Home() {
               style={{ width: "100%", marginTop: "1em" }}
               className="buttonRounded"
               onClick={() => {
-                  scrollToRecipes();
+                scrollToRecipes();
                 setGenerateDrinks(true);
               }}
             >
