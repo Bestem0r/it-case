@@ -17,21 +17,16 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
 
 import {Canvas, useFrame, useLoader} from "react-three-fiber";
+import useScrollSnap from "react-use-scroll-snap";
 
 function Scene() {
 
     const boxRef = useRef();
 
     useFrame(() => {
-        //Model of a drink
-        //Make the glass pivot around the in both directions
         if (boxRef.current) {
-            // @ts-ignore
             boxRef.current.rotation.y += 0.012;
             boxRef.current.rotation.z = 0.12;
-
-
-
         }
     });
 
@@ -64,9 +59,12 @@ export default function Home() {
         }
     }
 
+    const scrollRef = useRef(null);
+    useScrollSnap({ ref: scrollRef, duration: 50, delay: 0 });
+
   return (
     <main className={styles.main}>
-      <div>
+      <div ref={scrollRef}>
 
         <div className={styles.welcomeContainer}>
           <div className={styles.ideasContainer}>
