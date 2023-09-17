@@ -1,4 +1,41 @@
 .inputContainer {
     display: flex;
     flex-direction: row;
+    align-items: end;
+}
+
+
+.ul {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+}
+
+.li {
+    float: left;
+    display: flex;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 0.5em 1em;
+    border-radius: 8px;
+}
+
+.removeIcon {
+    margin-left: auto;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.inputDescription {
+    color: var(--background-color);
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: bold;
 }

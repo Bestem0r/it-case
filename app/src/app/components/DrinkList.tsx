@@ -1,16 +1,6 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  HtmlHTMLAttributes,
-  useEffect,
-  useState,
-} from "react";
-import {
-  getAllIngredients,
-  handleRemoveIngredient,
-} from "../../api/IngredientController";
-import { Cocktail, Ingredient } from "../constants/types";
-import { fetchCocktailsAny } from "@/api/fetchCocktails";
+import {Dispatch, useEffect, useState,} from "react";
+import {Cocktail, Ingredient} from "../constants/types";
+import {fetchCocktailsAny} from "@/api/fetchCocktails";
 
 interface AddIngredientsProps {
   generateDrinks: boolean;

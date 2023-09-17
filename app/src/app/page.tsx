@@ -1,16 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { getAllIngredients } from "../api/IngredientController";
+import {useRef, useState} from "react";
 import AddIngredients from "./components/AddIngredients";
 import IngredientList from "./components/IngredientList";
+
+import Typewriter from 'typewriter-effect';
 
 import styles from "./page.module.css";
 import Image from "next/image";
 
 import downArrow from "../../public/down-arrow-svgrepo-com.svg";
-import Navbar from "@/app/components/navbar/Navbar";
-import { Cocktail, Ingredient } from "./constants/types";
+import {Cocktail, Ingredient} from "./constants/types";
 import DrinkList from "./components/DrinkList";
 
 export default function Home() {
@@ -23,40 +23,49 @@ export default function Home() {
   const [generateDrinks, setGenerateDrinks] = useState(false);
   const ref = useRef<HTMLHeadingElement | null>(null);
 
-  function scrollToIngredients() {
-    console.log("Scrolling");
-  }
+    function scrollToIngredients() {
+        if (ref.current) {
+            ref.current?.scrollIntoView({behavior: "smooth"});
+        }
+    }
 
   return (
     <main className={styles.main}>
       <div>
-        <Navbar />
 
         <div className={styles.welcomeContainer}>
           <div className={styles.ideasContainer}>
-            <h1>Cocktail Cove</h1>
-            <h3>Find recipes for your favourite drinks</h3>
+            <Typewriter
+                            options={{
+                                strings: ['Margarita', 'Moscow Mule', 'Mojito', 'Spritz', 'Mimosa', 'Bloody Mary'],
+                                autoStart: true,
+                                loop: true,
+                                wrapperClassName: styles.typewriter,
+                                cursorClassName: styles.typewriter
+                            }}
+                        />
+            <h3 style={{marginTop: "1em"}}>Find recipes for your favourite drinks 🍸</h3>
             <button
               onClick={scrollToIngredients}
               style={{ marginTop: "3em" }}
               className="buttonRounded"
             >
-              Check it out!{" "}
+              CHECK IT OUT{" "}
             </button>
           </div>
 
           <div
-            onClick={() => console.log("fsdjksfdlkjlfsdkj")}
+            onClick={scrollToIngredients}
             className={styles.downButton}
           >
-            <h3>Try now</h3>
+            <h3>TRY NOW</h3>
             <Image src={downArrow} alt="Down" height={32} width={32} />
           </div>
         </div>
 
-        <div className={styles.ingredientsContainer}>
-          <h1 ref={ref}>Add your ingredients</h1>
-          <div style={{ marginTop: "2em" }}>
+        <div ref={ref} className={styles.ingredientsContainer}>
+          <h1>Add your ingredients 🍇</h1>
+          <div style={{ marginTop: "2em", width: "40%" }}>
             <div className={styles.ingredientsInnerContainer}>
               <AddIngredients setRefetch={setRefetch} />
               <IngredientList
@@ -73,13 +82,13 @@ export default function Home() {
                 setGenerateDrinks(true);
               }}
             >
-              Find drinks
+              FIND DRINKS
             </button>
           </div>
         </div>
 
         <div className={styles.recipesContainer}>
-          <h1>Here&apos;s some drinks you can make</h1>
+          <h1>Here&apos;s some drinks you can make 🧑‍🍳</h1>
           <DrinkList
             generateDrinks={generateDrinks}
             setGenerateDrinks={setGenerateDrinks}
