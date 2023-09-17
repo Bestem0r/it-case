@@ -1,5 +1,5 @@
-import { Dispatch } from "react";
-import { localIngredientEndpoint } from "../constants/constants";
+import {Dispatch} from "react";
+import {localIngredientEndpoint} from "../app/constants/constants";
 
 async function handleAddIngredient(
   name: string,
@@ -20,7 +20,6 @@ async function handleAddIngredient(
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Network response was not ok");
       }
       return response.json();
     })
@@ -51,7 +50,6 @@ function handleRemoveIngredient(
     .then((response) => {
       setRefetch(true);
       if (!response.ok) {
-        throw new Error("Network response was not ok");
       }
       return response;
     })
@@ -78,7 +76,6 @@ async function getAllIngredients() {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Network response was not ok");
       }
       return response.json();
     })

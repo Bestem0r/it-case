@@ -1,20 +1,23 @@
 import {Dispatch, useEffect, useState,} from "react";
-import {getAllIngredients, handleRemoveIngredient,} from "../api/IngredientController";
+import {getAllIngredients, handleRemoveIngredient,} from "../../api/IngredientController";
 import {Ingredient} from "../constants/types";
-import {fetchCocktailsAny} from "@/api/fetchCocktails";
 import {TrashOutline} from "react-ionicons";
 import styles from './Ingredients.module.css'
 
 interface AddIngredientsProps {
   refetch: boolean;
   setRefetch: Dispatch<React.SetStateAction<boolean>>;
+  ingredientList: Ingredient[] | null;
+  setIngredientList: Dispatch<React.SetStateAction<Ingredient[] | null>>;
 }
 
-const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
+const IngredientList = ({
+  refetch,
+  setRefetch,
+  ingredientList,
+  setIngredientList,
+}: AddIngredientsProps) => {
   const [loading, setLoading] = useState(true);
-  const [ingredientList, setIngredientList] = useState<Ingredient[] | null>(
-    null
-  );
 
   useEffect(() => {
     getAllIngredients().then((response) => {
@@ -23,11 +26,6 @@ const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
       setRefetch(false);
     });
     setLoading(true);
-
-    if (ingredientList)
-      fetchCocktailsAny(ingredientList, 10).then((response) =>
-        console.log(response)
-      );
   }, [refetch]);
 
   function handleIngredientRemove(id: number) {
@@ -38,7 +36,6 @@ const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
 
   return (
     <div style={{marginTop: '8px'}}>
-
       <span className={styles.inputDescription}>Your ingredients</span>
       {/* {loading && "Ingredients are loading"} */}
       {ingredientList && (
