@@ -1,16 +1,9 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  HtmlHTMLAttributes,
-  useEffect,
-  useState,
-} from "react";
-import {
-  getAllIngredients,
-  handleRemoveIngredient,
-} from "../api/IngredientController";
-import { Ingredient } from "../constants/types";
-import { fetchCocktailsAny } from "@/api/fetchCocktails";
+import {Dispatch, useEffect, useState,} from "react";
+import {getAllIngredients, handleRemoveIngredient,} from "../api/IngredientController";
+import {Ingredient} from "../constants/types";
+import {fetchCocktailsAny} from "@/api/fetchCocktails";
+import {TrashOutline} from "react-ionicons";
+import styles from './Ingredients.module.css'
 
 interface AddIngredientsProps {
   refetch: boolean;
@@ -26,7 +19,7 @@ const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
   useEffect(() => {
     getAllIngredients().then((response) => {
       setIngredientList(response);
-      //setLoading(false);
+      setLoading(false);
       setRefetch(false);
     });
     setLoading(true);
@@ -44,32 +37,26 @@ const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
   }
 
   return (
-    <>
+    <div style={{marginTop: '8px'}}>
+
+      <span className={styles.inputDescription}>Your ingredients</span>
       {/* {loading && "Ingredients are loading"} */}
-      {loading && (
-        <ul>
-          <li>Vodka - 1 L Delete</li>
-          <li>Smirnoff - 2 L Delete</li>
-        </ul>
-      )}
       {ingredientList && (
-        <ul>
+        <ul className={styles.ul}>
           {ingredientList.map((ingredient: Ingredient) => {
             return (
-              <li key={ingredient.id}>
+              <li className={styles.li} key={ingredient.id}>
                 {ingredient.name} - {ingredient.amount} L{" "}
-                <span
-                  key={ingredient.id}
-                  onClick={() => handleIngredientRemove(ingredient.id)}
-                >
-                  Delete
-                </span>
+                <div style={{marginLeft: "auto", cursor: "pointer"}}>
+                  <TrashOutline
+                      key={ingredient.id} onClick={() => handleIngredientRemove(ingredient.id)} color={'#e0466f'}/>
+                </div>
               </li>
             );
           })}
         </ul>
       )}
-    </>
+    </div>
   );
 };
 

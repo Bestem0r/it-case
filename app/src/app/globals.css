@@ -5,8 +5,8 @@ body {
 :root {
     --background-color: #f5f5f5;
     --primary-color: #e0466f;
-    --secondary-color: #e38fb2;
-    --secondary-gradient-color: #da6195;
+    --secondary-color: #e16f9f;
+    --secondary-gradient-color: #ec8154;
 }
 
 h1 {
@@ -43,5 +43,5 @@ input {
     border: none;
     border-radius: 8px;
     padding: 16px;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--background-color)
 }
