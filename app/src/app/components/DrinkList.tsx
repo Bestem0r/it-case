@@ -1,6 +1,7 @@
 import { Dispatch, useEffect, useState } from "react";
 import { Cocktail, Ingredient } from "../constants/types";
 import { fetchCocktailsAny } from "@/api/fetchCocktails";
+import { getProductsLike } from "@/api/VinmonopoletController";
 
 interface AddIngredientsProps {
   generateDrinks: boolean;
@@ -22,6 +23,7 @@ const DrinkList = ({
   setStockDrinkList,
 }: AddIngredientsProps) => {
   const [fetchingDrinks, setFetchingDrinks] = useState(true);
+  const [fetchingVP, setfetchingVP] = useState(true);
 
   useEffect(() => {
     if (generateDrinks && ingredientList) {
