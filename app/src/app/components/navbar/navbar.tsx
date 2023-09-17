@@ -6,10 +6,7 @@ import logo from '../../../../public/beverage-svgrepo-com.svg'
 export default function Navbar() {
     return (
         <div className={styles.navbar}>
-            <div className={styles.logo}>
-                <Image src={logo} alt="Logo" width={28} height={28} />
-            </div>
-            <h4 style={{marginLeft: "12px"}}>Cocktail Cove</h4>
+            <h4 className={styles.logo}>Cocktail Cove</h4>
         </div>
     )
 }

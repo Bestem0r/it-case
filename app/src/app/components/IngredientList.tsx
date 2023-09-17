@@ -8,6 +8,8 @@ import {
 import { getAllIngredients } from "../api/IngredientController";
 import Ingredient from "../constants/types";
 
+import styles from './ingredients.module.css'
+
 interface AddIngredientsProps {
   refetch: boolean;
   setRefetch: Dispatch<React.SetStateAction<boolean>>;
@@ -30,18 +32,20 @@ const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
 
   return (
     <>
-      {loading && "Ingredients are loading"}
-      {ingredientList && (
-        <ul>
-          {ingredientList.map((ingredient: Ingredient) => {
-            return (
-              <li key={ingredient.id}>
-                {ingredient.name} - {ingredient.amount} L
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <div style={{marginTop: "1em"}}>
+        {loading && "Ingredients are loading..."}
+        {ingredientList && (
+            <ul>
+              {ingredientList.map((ingredient: Ingredient) => {
+                return (
+                    <li key={ingredient.id}>
+                      {ingredient.name} - {ingredient.amount} L
+                    </li>
+                );
+              })}
+            </ul>
+        )}
+      </div>
     </>
   );
 };

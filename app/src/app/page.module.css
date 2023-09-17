@@ -3,9 +3,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
-    width: 100vw;
-    background-color: var(--secondary-color);
+
+    --size: 50px;
+    --p: 25px;
+    --R: 55.9px /*sqrt(var(--size)*var(--size) + var(--p)*var(--p))*/;
+
+    height: 100%;
+
+    -webkit-mask:
+            radial-gradient(var(--R) at 50% calc(100% - (var(--size) + var(--p))),var(--secondary-gradient-color) 99%,#0000 101%) calc(50% - 2*var(--size)) 0/calc(4*var(--size)) 100%,
+            radial-gradient(var(--R) at 50% calc(100% + var(--p)),#0000 99%,var(--secondary-color) 101%) 50% calc(100% - var(--size))/calc(4*var(--size)) 100% repeat-x;
+    background:linear-gradient(90deg,var(--secondary-color),var(--secondary-gradient-color));
+    border: none;
 }
 
 .ideasContainer {
@@ -18,11 +27,43 @@
 .ingredientsContainer {
     height: 80vh;
     width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ingredientsInnerContainer {
+    background:linear-gradient(90deg,var(--secondary-color),var(--secondary-gradient-color));
+    padding: 2em;
+    border-radius: 1em;
+    margin-top: 1em;
+}
+
+.recipesContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    --size: 50px;
+    --p: 25px;
+    --R: 55.9px /*sqrt(var(--size)*var(--size) + var(--p)*var(--p))*/;
+
+    height: 100%;
+
+    -webkit-mask:
+            radial-gradient(var(--R) at 50% calc(var(--size) + var(--p)),var(--secondary-gradient-color) 99%,#0000 101%) calc(50% - 2*var(--size)) 0/calc(4*var(--size)) 100%,
+            radial-gradient(var(--R) at 50% calc(-1*var(--p)),#0000 99%,var(--secondary-color) 101%) 50% var(--size)/calc(4*var(--size)) 100% repeat-x;
+    background:linear-gradient(90deg,var(--secondary-color),var(--secondary-gradient-color));
+    border: none;
 }
 
 .downButton {
-    position: absolute;
-    bottom: 0;
+    cursor: pointer;
+    position: fixed;
+    bottom: 1em;
     left: 50%;
     display: flex;
     flex-direction: column;
