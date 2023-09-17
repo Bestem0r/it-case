@@ -1,5 +1,5 @@
 import { ChangeEvent, HtmlHTMLAttributes, useState } from "react";
-import handleAddIngredient from "../api/IngredientController";
+import { handleAddIngredient } from "../api/IngredientController";
 
 const AddIngredients = () => {
   const [amount, setAmount] = useState(0);
@@ -19,8 +19,8 @@ const AddIngredients = () => {
 
   return (
     <>
+      <input type="text" placeholder="Name" onChange={handleNameChange}></input>
       <input type="number" step={0.5} onChange={handleAmountChange}></input>
-      <input type="text" onChange={handleNameChange}></input>
       <button onClick={addIngredient}>Legg til</button>
     </>
   );
