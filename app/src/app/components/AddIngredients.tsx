@@ -1,8 +1,8 @@
-import { ChangeEvent, Dispatch, useRef, useState } from "react";
-import { handleAddIngredient } from "../../api/IngredientController";
+import {ChangeEvent, Dispatch, useRef, useState} from "react";
+import {handleAddIngredient} from "../../api/IngredientController";
 
 import styles from "./Ingredients.module.css";
-import { AddOutline } from "react-ionicons";
+import {AddOutline} from "react-ionicons";
 
 interface AddIngredientsProps {
   setRefetch: Dispatch<React.SetStateAction<boolean>>;
