@@ -78,7 +78,7 @@ export default function Home() {
                           cursorClassName: styles.typewriter
                       }}
                   />
-                  <h3 style={{marginTop: "1em"}}>Find recipes for your favourite drinks 🍸</h3>
+                  <h3 style={{marginTop: "1em"}}>Find Drink Recipes from Ingredients You Already Have</h3>
                   <button
                       onClick={scrollToIngredients}
                       style={{ marginTop: "3em" }}
@@ -134,7 +134,7 @@ export default function Home() {
         </div>
 
         <div className={styles.recipesContainer} ref={recipesRef}>
-          <h1>Here&apos;s some drinks you can make 🧑‍🍳</h1>
+          <h1>Elevate Your Evening with These Drinks.</h1>
           <DrinkList
             generateDrinks={generateDrinks}
             setGenerateDrinks={setGenerateDrinks}
