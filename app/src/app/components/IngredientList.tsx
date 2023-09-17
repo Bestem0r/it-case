@@ -36,22 +36,25 @@ const IngredientList = ({
 
   return (
     <div style={{marginTop: '8px'}}>
-      <span className={styles.inputDescription}>Your ingredients</span>
       {/* {loading && "Ingredients are loading"} */}
       {ingredientList && (
-        <ul className={styles.ul}>
-          {ingredientList.map((ingredient: Ingredient) => {
-            return (
-              <li className={styles.li} key={ingredient.id}>
-                {ingredient.name} - {ingredient.amount} L{" "}
-                <div style={{marginLeft: "auto", cursor: "pointer"}}>
-                  <TrashOutline
-                      key={ingredient.id} onClick={() => handleIngredientRemove(ingredient.id)} color={'#e0466f'}/>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+          <>
+            <span className={styles.inputDescription}>Your ingredients</span>
+
+            <ul className={styles.ul}>
+              {ingredientList.map((ingredient: Ingredient) => {
+                return (
+                    <li className={styles.li} key={ingredient.id}>
+                      {ingredient.name} - {ingredient.amount} L{" "}
+                      <div style={{marginLeft: "auto", cursor: "pointer"}}>
+                        <TrashOutline
+                            key={ingredient.id} onClick={() => handleIngredientRemove(ingredient.id)} color={'#e0466f'}/>
+                      </div>
+                    </li>
+                );
+              })}
+            </ul>
+          </>
       )}
     </div>
   );
