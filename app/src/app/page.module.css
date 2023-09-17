@@ -63,19 +63,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    padding-top: 250px;
 
     --size: 50px;
     --p: 25px;
     --R: 55.9px /*sqrt(var(--size)*var(--size) + var(--p)*var(--p))*/;
 
-    height: 100vh;
+    min-height: 100vh;
 
     -webkit-mask:
             radial-gradient(var(--R) at 50% calc(var(--size) + var(--p)),var(--secondary-gradient-color) 99%,#0000 101%) calc(50% - 2*var(--size)) 0/calc(4*var(--size)) 100%,
             radial-gradient(var(--R) at 50% calc(-1*var(--p)),#0000 99%,var(--secondary-color) 101%) 50% var(--size)/calc(4*var(--size)) 100% repeat-x;
     background:linear-gradient(90deg,var(--secondary-color),var(--secondary-gradient-color));
     border: none;
+}
+
+.recipesContainer h1 {
+  margin: 0 0 5rem 0;
 }
 
 .downButton {

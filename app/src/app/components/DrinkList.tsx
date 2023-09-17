@@ -1,6 +1,18 @@
-import {Dispatch, useEffect, useState,} from "react";
-import {Cocktail, Ingredient} from "../constants/types";
-import {fetchCocktailsAny} from "@/api/fetchCocktails";
+import {
+  ChangeEvent,
+  Dispatch,
+  HtmlHTMLAttributes,
+  useEffect,
+  useState,
+} from "react";
+import {
+  getAllIngredients,
+  handleRemoveIngredient,
+} from "../../api/IngredientController";
+import { Cocktail, Ingredient } from "../constants/types";
+import { fetchCocktailsAny } from "@/api/fetchCocktails";
+import styles from "./Recipes.module.css";
+import { ArrowForward } from "react-ionicons";
 
 interface AddIngredientsProps {
   generateDrinks: boolean;
@@ -9,6 +21,30 @@ interface AddIngredientsProps {
   drinkList: Cocktail[] | null;
   setDrinkList: Dispatch<React.SetStateAction<Cocktail[] | null>>;
 }
+
+type DrinkCardProps = {
+  drink: Cocktail;
+}
+
+const DrinkCard = ({drink}: DrinkCardProps) => {
+  return (
+    <div className={styles.drinkCard}>
+      <img src={drink.thumbnail}/>
+      <div className={styles.drinkCardInfo}>
+        <p className={styles.drinkCardName}>{drink.name}</p>
+        <div className={styles.drinkCardIngredientList}>
+          {drink.ingredients.map((ingredient) =>
+            <div className={styles.drinkCardRow}>
+              <span>{(!(/\d/.test(ingredient.amount)) && ingredient.amount) && (ingredient.amount + " ")}{ingredient.name}</span>
+              <span>{/\d/.test(ingredient.amount) && ingredient.amount}</span>
+            </div>
+          )}
+        </div>
+        <p className={styles.drinkButton}><span>Read more</span><ArrowForward height="24px"/></p>
+      </div>
+    </div>
+  )
+};
 
 const DrinkList = ({
   generateDrinks,
@@ -34,11 +70,9 @@ const DrinkList = ({
     <>
       {fetchingDrinks && "Loading"}
       {drinkList && (
-        <ul>
-          {drinkList.map((drink: Cocktail) => {
-            return <li key={drink.name}>{drink.instructions}</li>;
-          })}
-        </ul>
+        <div className={styles.drinkList}>
+          {drinkList.map((drink: Cocktail) => <DrinkCard drink={drink}/>)}
+        </div>
       )}
     </>
   );

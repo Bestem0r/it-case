@@ -21,7 +21,7 @@ function pickRandomItems<T>(list: T[], n: number): T[] {
 }
 
 export async function fetchCocktailsFromIngredients(ingredients: Ingredient[], alcoholic: boolean) {
-  const response = await fetch(`${API_URL}filter.php?a=${alcoholic ? 'Alcoholic' : 'Non_Alcoholic'}&i=${ingredients.map(ingredient => ingredient.name).join(',')}`);
+  const response = await fetch(`${API_URL}filter.php?i=${ingredients.map(ingredient => ingredient.name).join(',')}`);
   return (await response.json())["drinks"] as UnpopulatedRawCocktail[];
 }
 
