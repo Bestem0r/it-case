@@ -1,6 +1,11 @@
+import { Dispatch } from "react";
 import { localIngredientEndpoint } from "../constants/constants";
 
-async function handleAddIngredient(name: string, amount: number) {
+async function handleAddIngredient(
+  name: string,
+  amount: number,
+  setRefetch: Dispatch<React.SetStateAction<boolean>>
+) {
   const body = {
     name: name,
     amount: amount,
@@ -21,6 +26,7 @@ async function handleAddIngredient(name: string, amount: number) {
     })
     .then((data) => {
       console.log(data);
+      setRefetch(true);
     })
     .catch((error) => {
       console.error(

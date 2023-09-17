@@ -1,7 +1,11 @@
-import { ChangeEvent, HtmlHTMLAttributes, useState } from "react";
+import { ChangeEvent, Dispatch, HtmlHTMLAttributes, useState } from "react";
 import { handleAddIngredient } from "../api/IngredientController";
 
-const AddIngredients = () => {
+interface AddIngredientsProps {
+  setRefetch: Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
   const [amount, setAmount] = useState(0);
   const [name, setName] = useState("");
 
@@ -14,7 +18,7 @@ const AddIngredients = () => {
   }
 
   function addIngredient() {
-    handleAddIngredient(name, amount);
+    handleAddIngredient(name, amount, setRefetch);
   }
 
   return (

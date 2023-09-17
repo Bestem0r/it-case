@@ -1,8 +1,19 @@
-import { ChangeEvent, HtmlHTMLAttributes, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  HtmlHTMLAttributes,
+  useEffect,
+  useState,
+} from "react";
 import { getAllIngredients } from "../api/IngredientController";
 import Ingredient from "../constants/types";
 
-const AddIngredients = () => {
+interface AddIngredientsProps {
+  refetch: boolean;
+  setRefetch: Dispatch<React.SetStateAction<boolean>>;
+}
+
+const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
   const [loading, setLoading] = useState(true);
   const [ingredientList, setIngredientList] = useState<Ingredient[] | null>(
     null
@@ -12,9 +23,10 @@ const AddIngredients = () => {
     getAllIngredients().then((response) => {
       setLoading(false);
       setIngredientList(response);
+      setRefetch(false);
     });
     setLoading(true);
-  }, []);
+  }, [refetch]);
 
   return (
     <>
@@ -34,4 +46,4 @@ const AddIngredients = () => {
   );
 };
 
-export default AddIngredients;
+export default IngredientList;
