@@ -5,8 +5,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getAllIngredients } from "../api/IngredientController";
-import Ingredient from "../constants/types";
+import {
+  getAllIngredients,
+  handleRemoveIngredient,
+} from "../api/IngredientController";
+import { Ingredient } from "../constants/types";
+import { fetchCocktailsAny } from "@/api/fetchCocktails";
 
 interface AddIngredientsProps {
   refetch: boolean;
@@ -21,22 +25,45 @@ const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
 
   useEffect(() => {
     getAllIngredients().then((response) => {
-      setLoading(false);
       setIngredientList(response);
+      setLoading(false);
       setRefetch(false);
     });
     setLoading(true);
+
+    if (ingredientList)
+      fetchCocktailsAny(ingredientList, 10).then((response) =>
+        console.log(response)
+      );
   }, [refetch]);
+
+  function handleIngredientRemove(id: number) {
+    handleRemoveIngredient(id, setRefetch).then((response) => {
+      setRefetch(true);
+    });
+  }
 
   return (
     <>
-      {loading && "Ingredients are loading"}
+      {/* {loading && "Ingredients are loading"} */}
+      {loading && (
+        <ul>
+          <li>Vodka - 1 L Delete</li>
+          <li>Smirnoff - 2 L Delete</li>
+        </ul>
+      )}
       {ingredientList && (
         <ul>
           {ingredientList.map((ingredient: Ingredient) => {
             return (
               <li key={ingredient.id}>
-                {ingredient.name} - {ingredient.amount} L
+                {ingredient.name} - {ingredient.amount} L{" "}
+                <span
+                  key={ingredient.id}
+                  onClick={() => handleIngredientRemove(ingredient.id)}
+                >
+                  Delete
+                </span>
               </li>
             );
           })}
