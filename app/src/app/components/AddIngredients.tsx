@@ -13,11 +13,15 @@ const AddIngredients = () => {
     setName(String(event.target.value));
   }
 
+  function addIngredient() {
+    handleAddIngredient(name, amount);
+  }
+
   return (
     <>
       <input type="number" step={0.5} onChange={handleAmountChange}></input>
-      <input type="text"></input>
-      <button onClick={handleAddIngredient()}>Legg til</button>
+      <input type="text" onChange={handleNameChange}></input>
+      <button onClick={addIngredient}>Legg til</button>
     </>
   );
 };
