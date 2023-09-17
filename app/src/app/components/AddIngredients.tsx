@@ -1,6 +1,9 @@
 import { ChangeEvent, Dispatch, HtmlHTMLAttributes, useState } from "react";
 import { handleAddIngredient } from "../api/IngredientController";
 
+import styles from './Ingredients.module.css'
+import {AddOutline} from "react-ionicons";
+
 interface AddIngredientsProps {
   setRefetch: Dispatch<React.SetStateAction<boolean>>;
 }
@@ -23,9 +26,17 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
 
   return (
     <>
-      <input type="text" placeholder="Name" onChange={handleNameChange}></input>
-      <input type="number" step={0.5} onChange={handleAmountChange}></input>
-      <button onClick={addIngredient}>Legg til</button>
+      <div className={styles.inputContainer}>
+        <input style={{marginRight: "4px"}} type="text" placeholder="Name" onChange={handleNameChange}></input>
+        <input style={{marginLeft: "4px"}} type="number" step={0.5} onChange={handleAmountChange}></input>
+        <button style={{marginLeft: "8px"}} className="buttonIcon" onClick={addIngredient}>
+          <AddOutline
+              color={'#FFFFFF'}
+              title={"Add"}
+              height="24px"
+              width="24px"/>
+        </button>
+      </div>
     </>
   );
 };
