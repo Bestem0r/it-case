@@ -1,9 +1,9 @@
-import { Dispatch, Fragment, useEffect, useState } from "react";
-import { Cocktail, Ingredient } from "../constants/types";
-import { fetchCocktailsAny } from "@/api/fetchCocktails";
+import {Dispatch, Fragment, useEffect, useState} from "react";
+import {Cocktail, Ingredient} from "../constants/types";
+import {fetchCocktailsAny} from "@/api/fetchCocktails";
 import styles from "./Recipes.module.css";
-import { ArrowForward } from "react-ionicons";
-import { Transition, Dialog } from "@headlessui/react";
+import {ArrowForward} from "react-ionicons";
+import {Dialog, Transition} from "@headlessui/react";
 
 interface AddIngredientsProps {
   generateDrinks: boolean;
@@ -51,7 +51,7 @@ const DrinkCard = ({ drink, setIsOpen, setCurrentDrink }: DrinkCardProps) => {
           ))}
         </div>
         <p className={styles.drinkButton}>
-          <span style={{ marginBottom: "6px" }}>Read more</span>
+          <span>Read more</span>
           <ArrowForward height="24px" />
         </p>
       </div>
@@ -72,7 +72,7 @@ const DrinkModal = ({ drink, isOpen, setIsOpen }: DrinkModalProps) => {
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center">
-        <button
+        <button style={{display: "none"}}
           type="button"
           onClick={openModal}
           className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
@@ -106,27 +106,45 @@ const DrinkModal = ({ drink, isOpen, setIsOpen }: DrinkModalProps) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel style={{padding: "3em"}} className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
-                    as="h3"
+                    as="h1"
+                    style={{fontSize: "48px"}}
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment successful
+                    {drink?.name}
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
+
+                  <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
+                    <div className="mt-2" style={{paddingRight: "2em"}}>
+                      <h2 style={{marginTop: "1em", fontSize: "24px", marginBottom: "1em"}}>Instructions</h2>
+                      <p>
+                        {drink?.instructions}
+                      </p>
+                    </div>
+
+                    <div className={styles.drinkCardIngredientList} style={{height: "100%", marginTop: "4em"}}>
+                      {drink?.ingredients.map((ingredient) => (
+                          <div className={styles.drinkCardRow} key={ingredient.name}>
+              <span>
+                {!/\d/.test(ingredient.amount) &&
+                    ingredient.amount &&
+                    ingredient.amount + " "}
+                {ingredient.name}
+              </span>
+                            <span>{/\d/.test(ingredient.amount) && ingredient.amount}</span>
+                          </div>
+                      ))}
+                    </div>
                   </div>
 
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Got it, thanks!
+                      Close
                     </button>
                   </div>
                 </Dialog.Panel>
@@ -147,7 +165,7 @@ const DrinkList = ({
   setDrinkList,
 }: AddIngredientsProps) => {
   const [fetchingDrinks, setFetchingDrinks] = useState(true);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [currentDrink, setCurrentDrink] = useState<Cocktail | null>(null);
 
   useEffect(() => {
