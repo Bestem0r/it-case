@@ -8,20 +8,24 @@ import {
 import {
   getAllIngredients,
   handleRemoveIngredient,
-} from "../api/IngredientController";
+} from "../../api/IngredientController";
 import { Ingredient } from "../constants/types";
 import { fetchCocktailsAny } from "@/api/fetchCocktails";
 
 interface AddIngredientsProps {
   refetch: boolean;
   setRefetch: Dispatch<React.SetStateAction<boolean>>;
+  ingredientList: Ingredient[] | null;
+  setIngredientList: Dispatch<React.SetStateAction<Ingredient[] | null>>;
 }
 
-const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
+const IngredientList = ({
+  refetch,
+  setRefetch,
+  ingredientList,
+  setIngredientList,
+}: AddIngredientsProps) => {
   const [loading, setLoading] = useState(true);
-  const [ingredientList, setIngredientList] = useState<Ingredient[] | null>(
-    null
-  );
 
   useEffect(() => {
     getAllIngredients().then((response) => {
@@ -45,13 +49,13 @@ const IngredientList = ({ refetch, setRefetch }: AddIngredientsProps) => {
 
   return (
     <>
-      {/* {loading && "Ingredients are loading"} */}
-      {loading && (
+      {loading && "Loading"}
+      {/* {loading && (
         <ul>
           <li>Vodka - 1 L Delete</li>
           <li>Smirnoff - 2 L Delete</li>
         </ul>
-      )}
+      )} */}
       {ingredientList && (
         <ul>
           {ingredientList.map((ingredient: Ingredient) => {
