@@ -38,7 +38,36 @@ async function handleAddIngredient(
 
 function handleUpdateIngredient() {}
 
-function handleRemoveIngredient() {}
+function handleRemoveIngredient(
+  id: number,
+  setRefetch: Dispatch<React.SetStateAction<boolean>>
+) {
+  const remove = fetch(`${localIngredientEndpoint}${id}/`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      setRefetch(true);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response;
+    })
+    .then((data) => {
+      setRefetch(true);
+      return data;
+    })
+    .catch((error) => {
+      console.error(
+        "There was a problem with the fetch operation:",
+        error.message
+      );
+    });
+
+  return remove;
+}
 
 async function getAllIngredients() {
   const ingredients = fetch(localIngredientEndpoint, {
@@ -66,4 +95,4 @@ async function getAllIngredients() {
   return ingredients;
 }
 
-export { handleAddIngredient, getAllIngredients };
+export { handleAddIngredient, getAllIngredients, handleRemoveIngredient };
