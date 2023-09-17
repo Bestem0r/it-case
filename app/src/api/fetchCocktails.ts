@@ -30,6 +30,11 @@ export async function fetchCocktailFromId(id: string) {
   return (await response.json())["drinks"][0] as RawCocktail;
 }
 
+export async function fetchIngredients() {
+  const response = await fetch(`${API_URL}list.php?i=list`);
+  return await response.json();
+}
+
 async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cocktail> {
   const data = await fetchCocktailFromId(cocktail.idDrink);
 

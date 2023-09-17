@@ -84,11 +84,11 @@
 }
 
 .downButton {
-    cursor: pointer;
-    position: fixed;
-    bottom: 1em;
-    left: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  cursor: pointer;
+  position: fixed;
+  bottom: 1em;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

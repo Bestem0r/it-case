@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import AddIngredients from "./components/AddIngredients";
 import IngredientList from "./components/IngredientList";
 
@@ -17,6 +17,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 import { Canvas, useFrame, useLoader } from "react-three-fiber";
 import useScrollSnap from "react-use-scroll-snap";
+import { fetchIngredients } from "@/api/fetchCocktails";
 
 function Scene() {
   const boxRef = useRef();
