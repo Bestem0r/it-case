@@ -20,8 +20,8 @@ function pickRandomItems<T>(list: T[], n: number): T[] {
   return pickedItems;
 }
 
-export async function fetchCocktailsFromIngredients(ingredients: Ingredient[]) {
-  const response = await fetch(`${API_URL}filter.php?i=${ingredients.map(ingredient => ingredient.name).join(',')}`);
+export async function fetchCocktailsFromIngredients(ingredients: Ingredient[], alcoholic: boolean) {
+  const response = await fetch(`${API_URL}filter.php?a=${alcoholic ? 'Alcoholic' : 'Non_Alcoholic'}&i=${ingredients.map(ingredient => ingredient.name).join(',')}`);
   return (await response.json())["drinks"] as UnpopulatedRawCocktail[];
 }
 
@@ -63,12 +63,12 @@ async function populateCocktails(cocktails: UnpopulatedRawCocktail[]) {
   return responses;
 }
 
-export async function fetchCocktailsAll(ingredients: Ingredient[], count: number): Promise<Cocktail[]> {
-  const cocktails = await fetchCocktailsFromIngredients(ingredients);
+export async function fetchCocktailsAll(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]> {
+  const cocktails = await fetchCocktailsFromIngredients(ingredients, alcoholic);
   const randomCocktails = pickRandomItems(cocktails, count);
   return populateCocktails(randomCocktails);
 }
 
-export async function fetchCocktailsAny(ingredients: Ingredient[], count: number): Promise<Cocktail[]>{
-  return fetchCocktailsAll(ingredients, count);
+export async function fetchCocktailsAny(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]>{
+  return fetchCocktailsAll(ingredients, count, alcoholic);
 }
