@@ -1,7 +1,10 @@
-import {Dispatch, useEffect, useState} from "react";
-import {getAllIngredients, handleRemoveIngredient,} from "../../api/IngredientController";
-import {Ingredient} from "../constants/types";
-import {TrashOutline} from "react-ionicons";
+import { Dispatch, useEffect, useState } from "react";
+import {
+  getAllIngredients,
+  handleRemoveIngredient,
+} from "../../api/IngredientController";
+import { Ingredient } from "../constants/types";
+import { TrashOutline } from "react-ionicons";
 import styles from "./Ingredients.module.css";
 
 interface AddIngredientsProps {
@@ -39,16 +42,16 @@ const IngredientList = ({
       {/* {loading && "Ingredients are loading"} */}
       {ingredientList && (
         <>
-          {
-            ingredientList.length > 0 &&
-              <span  className={styles.inputDescription}>Your ingredients</span>
-          }
+          {ingredientList.length > 0 && (
+            <span className={styles.inputDescription}>Your ingredients</span>
+          )}
 
           <ul className={styles.ul}>
             {ingredientList.map((ingredient: Ingredient) => {
               return (
                 <li className={styles.li} key={ingredient.id}>
-                  {ingredient.name} {ingredient.amount > 0 && " - " + ingredient.amount + " L"} {" "}
+                  {ingredient.name}{" "}
+                  {ingredient.amount > 0 && " - " + ingredient.amount + " L"}{" "}
                   <div
                     style={{
                       marginLeft: "auto",
