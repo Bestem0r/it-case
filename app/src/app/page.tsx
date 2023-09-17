@@ -1,6 +1,6 @@
 "use client";
 
-import {useRef, useState} from "react";
+import { useRef, useState } from "react";
 import AddIngredients from "./components/AddIngredients";
 import IngredientList from "./components/IngredientList";
 
@@ -10,12 +10,12 @@ import styles from "./page.module.css";
 import Image from "next/image";
 
 import downArrow from "../../public/down-arrow-svgrepo-com.svg";
-import {Cocktail, Ingredient} from "./constants/types";
+import { Cocktail, Ingredient } from "./constants/types";
 import DrinkList from "./components/DrinkList";
 
-import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-import {Canvas, useFrame, useLoader} from "react-three-fiber";
+import { Canvas, useFrame, useLoader } from "react-three-fiber";
 import useScrollSnap from "react-use-scroll-snap";
 
 function Scene() {
@@ -132,17 +132,17 @@ export default function Home() {
             </button>
           </div>
         </div>
+      </div>
 
-        <div className={styles.recipesContainer} ref={recipesRef}>
-          <h1>Elevate Your Evening with These Drinks.</h1>
-          <DrinkList
-            generateDrinks={generateDrinks}
-            setGenerateDrinks={setGenerateDrinks}
-            ingredientList={ingredientList}
-            drinkList={drinkList}
-            setDrinkList={setDrinkList}
-          />
-        </div>
+      <div className={styles.recipesContainer} ref={recipesRef}>
+        <h1>Elevate Your Evening with These Drinks.</h1>
+        <DrinkList
+          generateDrinks={generateDrinks}
+          setGenerateDrinks={setGenerateDrinks}
+          ingredientList={ingredientList}
+          drinkList={drinkList}
+          setDrinkList={setDrinkList}
+        />
       </div>
     </main>
   );
