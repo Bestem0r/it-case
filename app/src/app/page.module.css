@@ -1,0 +1,30 @@
+.welcomeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 100vw;
+    background-color: var(--secondary-color);
+}
+
+.ideasContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-top: -15em;
+}
+
+.ingredientsContainer {
+    height: 80vh;
+    width: 100vw;
+}
+
+.downButton {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
