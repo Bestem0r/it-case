@@ -38,13 +38,14 @@ const IngredientList = ({
   }
 
   return (
-    <div style={{ marginTop: "8px" }}>
+    <div style={{ marginTop: "1.5rem" }}>
       {/* {loading && "Ingredients are loading"} */}
       {ingredientList && (
         <>
-          {ingredientList.length > 0 && (
-            <span className={styles.inputDescription}>Your ingredients</span>
-          )}
+          {
+            ingredientList.length > 0 &&
+              <span className={styles.inputDescription}>Your ingredients</span>
+          }
 
           <ul className={styles.ul}>
             {ingredientList.map((ingredient: Ingredient) => {
