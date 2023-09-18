@@ -5,6 +5,7 @@ import styles from "./Recipes.module.css";
 import {ArrowForward} from "react-ionicons";
 import {Dialog, Transition} from "@headlessui/react";
 import {getProductsLike} from "@/api/VinmonopoletController";
+import Typewriter from "typewriter-effect";
 
 interface AddIngredientsProps {
   generateDrinks: boolean;
@@ -116,59 +117,74 @@ const DrinkModal = ({ drink, isOpen, setIsOpen, vpData }: DrinkModalProps) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  style={{ padding: "3em" }}
+                  style={{ padding: "3em", backgroundColor: "#efe2dc" }}
                   className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-background p-6 text-left align-middle shadow-xl transition-all"
                 >
                   <Dialog.Title
                     as="h1"
-                    style={{ fontSize: "48px" }}
+                    style={{ fontSize: "48px", lineHeight: "2em", borderBottom: "1px solid black" }}
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     {drink?.name}
                   </Dialog.Title>
 
                   <div
-                    style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+                    style={{ display: "grid", gridTemplateColumns: "1fr 1fr", marginTop: "2em" }}
                   >
                     <div className="mt-2" style={{ paddingRight: "2em" }}>
                       <h2
                         style={{
                           marginTop: "1em",
-                          fontSize: "24px",
                           marginBottom: "1em",
+                          fontSize: "larger",
+                          fontWeight: "650",
                         }}
                       >
                         Instructions
                       </h2>
-                      <p>{drink?.instructions}</p>
+                      <p style={{whiteSpace: "pre-line", wordWrap: "break-word"}}>{drink?.instructions}</p>
                     </div>
 
-                    <div
-                      className={styles.drinkCardIngredientList}
-                      style={{ height: "100%", marginTop: "4em" }}
-                    >
-                      {drink?.ingredients.map((ingredient) => (
-                        <div
-                          className={styles.drinkCardRow}
-                          key={ingredient.name}
-                        >
+                    <div>
+                      <h2
+                          style={{
+                            marginTop: "1.2em",
+                            marginBottom: "1em",
+                            fontSize: "larger",
+                            fontWeight: "650",
+                          }}
+                      >
+                        Ingredients
+                      </h2>
+                      <div
+                          className={styles.drinkCardIngredientList}
+                          style={{ height: "100%"}}
+                      >
+                        {drink?.ingredients.map((ingredient) => (
+                            <div
+                                className={styles.drinkCardRow}
+                                key={ingredient.name}
+                            >
                           <span>
                             {!/\d/.test(ingredient.amount) &&
-                              ingredient.amount &&
-                              ingredient.amount + " "}
+                                ingredient.amount &&
+                                ingredient.amount + " "}
                             {ingredient.name}
                           </span>
-                          <span>
+                              <span>
                             {/\d/.test(ingredient.amount) && ingredient.amount}
                           </span>
-                        </div>
-                      ))}
+                            </div>
+                        ))}
+                      </div>
+
                     </div>
+
                   </div>
 
                   {vpData && vpData.length > 0 && (
                     <div className={styles.vpDataList}>
-                      <h2>På vinmonopolet:</h2>
+                      <h2>From Vinmonopolet</h2>
                       <ul>
                         {vpData
                           .filter((e: any) => e.productId)
@@ -264,7 +280,20 @@ const DrinkList = ({
 
   return (
     <>
-      {fetchingDrinks && ""}
+      {fetchingDrinks && generateDrinks && (
+          <Typewriter
+              options={{
+                strings: [
+                  "Rounding up refreshments...",
+                ],
+                autoStart: true,
+                loop: true,
+                wrapperClassName: styles.typewriter,
+                cursorClassName: styles.typewriter,
+              }}
+          />
+
+      )}
       {drinkList && (
         <div className={styles.drinkList}>
           <DrinkModal
