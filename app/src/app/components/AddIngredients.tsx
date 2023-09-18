@@ -46,26 +46,23 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
   return (
     <>
       <div className={styles.inputContainer}>
-        <div className={styles.inputWrapper} style={{ width: "100%" }}>
+        <div className={styles.inputWrapper} style={{ flexGrow: 1 }}>
           <span className={styles.inputDescription}>Ingredient</span>
           <IngredientInput setName={setName} name={name} />
         </div>
 
-        <div className={styles.inputWrapper}>
-          <span className={styles.inputDescription}>Amount (Litre)</span>
+        <div className={styles.inputWrapper} style={{ width: "105px" }}>
+          <span className={styles.inputDescription}>Amount (liters)</span>
           <input
-            style={{ marginLeft: "4px", width: "100px", height: "40px" }}
             type="number"
-            placeholder="Amount"
             step={0.5}
-            min={0}
+            placeholder="0.5"
             onChange={handleAmountChange}
             ref={amountInput}
           ></input>
         </div>
-        <div style={{ width: "48px" }}>
-          <button
-            style={{ marginLeft: "8px" }}
+        <div>
+          <div
             className="buttonIcon"
             onClick={addIngredient}
           >
@@ -76,7 +73,7 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
               height="24px"
               width="24px"
             />
-          </button>
+          </div>
         </div>
       </div>
     </>
