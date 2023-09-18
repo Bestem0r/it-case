@@ -64,8 +64,21 @@ async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cockt
 
 async function populateCocktails(cocktails: UnpopulatedRawCocktail[]) {
   const promises = cocktails.map(cocktail => populateCocktail(cocktail));
-  const responses = await Promise.all(promises);
-  return responses;
+  return await Promise.all(promises);
+}
+
+async function rewriteWithGpt(instructions: string): Promise<string> {
+  const API_KEY = ''
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(''),
+  });
+
+  return response.json();
 }
 
 export async function fetchCocktailsAll(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]> {

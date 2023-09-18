@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import AddIngredients from "./components/AddIngredients";
 import IngredientList from "./components/IngredientList";
 
@@ -10,14 +10,14 @@ import styles from "./page.module.css";
 import Image from "next/image";
 
 import downArrow from "../../public/down-arrow-svgrepo-com.svg";
-import { Cocktail, Ingredient } from "./constants/types";
+import {Cocktail, Ingredient} from "./constants/types";
 import DrinkList from "./components/DrinkList";
 
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
-import { Canvas, useFrame, useLoader } from "react-three-fiber";
+import {Canvas, useFrame, useLoader} from "react-three-fiber";
 import useScrollSnap from "react-use-scroll-snap";
-import { fetchIngredients } from "@/api/fetchCocktails";
+import leaves from '../../public/images/5498894-removebg-preview_waifu2x_art_noise3_scale.png'
 
 function Scene() {
   const boxRef = useRef();
@@ -63,6 +63,7 @@ export default function Home() {
     <main className={styles.main}>
       <div ref={scrollRef}>
         <div className={styles.welcomeContainer}>
+          <Image className={styles.leaves} src={leaves} alt={leaves}></Image>
           <div className={styles.ideasContainer}>
             <div>
               <Typewriter

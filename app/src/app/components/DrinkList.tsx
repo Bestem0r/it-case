@@ -4,6 +4,7 @@ import {fetchCocktailsAny} from "@/api/fetchCocktails";
 import styles from "./Recipes.module.css";
 import {ArrowForward} from "react-ionicons";
 import {Dialog, Transition} from "@headlessui/react";
+import modalStyles from './DrinkModal.module.css'
 
 interface AddIngredientsProps {
   generateDrinks: boolean;
@@ -117,7 +118,7 @@ const DrinkModal = ({ drink, isOpen, setIsOpen }: DrinkModalProps) => {
 
                   <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
                     <div className="mt-2" style={{paddingRight: "2em"}}>
-                      <h2 style={{marginTop: "1em", fontSize: "24px", marginBottom: "1em"}}>Instructions</h2>
+                      <h2 className={modalStyles.h2}>Instructions</h2>
                       <p>
                         {drink?.instructions}
                       </p>
