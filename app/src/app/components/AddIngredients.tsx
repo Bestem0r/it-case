@@ -55,6 +55,7 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
           <span className={styles.inputDescription}>Amount (liters)</span>
           <input
             type="number"
+            min={0}
             step={0.5}
             placeholder="0.5"
             onChange={handleAmountChange}

@@ -23,12 +23,16 @@ function pickRandomItems<T>(list: T[], n: number): T[] {
 
 export async function fetchCocktailsFromIngredients(ingredients: Ingredient[], alcoholic: boolean) {
   const response = await fetch(`${API_URL}filter.php?i=${ingredients.map(ingredient => ingredient.name).join(',')}`);
-  return (await response.json())["drinks"] as UnpopulatedRawCocktail[];
+  const json = (await response.json())["drinks"];
+  if (json === "None Found") return [];
+  return json as UnpopulatedRawCocktail[];
 }
 
 export async function fetchCocktailFromId(id: string) {
   const response = await fetch(`${API_URL}lookup.php?i=${id}`);
-  return (await response.json())["drinks"][0] as RawCocktail;
+  const json = (await response.json())["drinks"];
+  if (json === "None Found") return null;
+  return json[0] as RawCocktail;
 }
 
 export async function fetchIngredients() {
@@ -36,8 +40,9 @@ export async function fetchIngredients() {
   return await response.json();
 }
 
-async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cocktail> {
+async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cocktail | null> {
   const data = await fetchCocktailFromId(cocktail.idDrink);
+  if (data == null) return null;
 
   return {
     name: data.strDrink,
@@ -66,11 +71,12 @@ async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cockt
 async function populateCocktails(cocktails: UnpopulatedRawCocktail[]) {
   const promises = cocktails.map(cocktail => populateCocktail(cocktail));
   const responses = await Promise.all(promises);
-  return responses;
+  return responses.filter(response => response != null) as Cocktail[];
 }
 
 export async function fetchCocktailsAll(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]> {
   const cocktails = await fetchCocktailsFromIngredients(ingredients, alcoholic);
+  if (cocktails == null) return [];
   const randomCocktails = pickRandomItems(cocktails, count);
   return populateCocktails(randomCocktails);
 }
