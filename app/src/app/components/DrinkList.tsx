@@ -117,7 +117,7 @@ const DrinkModal = ({ drink, isOpen, setIsOpen, vpData }: DrinkModalProps) => {
               >
                 <Dialog.Panel
                   style={{ padding: "3em" }}
-                  className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                  className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-background p-6 text-left align-middle shadow-xl transition-all"
                 >
                   <Dialog.Title
                     as="h1"
@@ -190,7 +190,7 @@ const DrinkModal = ({ drink, isOpen, setIsOpen, vpData }: DrinkModalProps) => {
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       Close
