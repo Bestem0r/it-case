@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   margin: 2rem 0;
-  border-top: 1px solid #676767;
+  border-top: 1px solid #464646;
 }
 
 .drinkCard img {
@@ -36,7 +36,7 @@
 
 .drinkCardRow {
   display: flex;
-  border-bottom: 1px solid #676767;
+  border-bottom: 1px solid #464646;
   justify-content: space-between;
   padding: 12px;
 }
@@ -68,11 +68,12 @@
   transition: 0.2s;
   cursor: pointer;
   padding-right: 0.5rem;
+  color: var(--primary-color);
 }
 
 .drinkButton:hover {
   gap: 0.8rem;
-  padding-right: 0rem;
+  padding-right: 0;
 }
 
 .vpDataList{
