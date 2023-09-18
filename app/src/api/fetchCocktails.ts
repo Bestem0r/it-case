@@ -46,7 +46,7 @@ async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cockt
   return {
     name: data.strDrink,
     thumbnail: data.strDrinkThumb,
-    instructions: data.strInstructions,
+    instructions: await rewriteWithGpt(data.strInstructions),
     ingredients: ([
       { name: data.strIngredient1, amount: data.strMeasure1},
       { name: data.strIngredient2, amount: data.strMeasure2},
@@ -74,17 +74,27 @@ async function populateCocktails(cocktails: UnpopulatedRawCocktail[]) {
 }
 
 async function rewriteWithGpt(instructions: string): Promise<string> {
-    const API_KEY = ''
+
+  const apiRequestBody = {
+    "model": "gpt-3.5-turbo",
+    "messages": [
+      {"role": "user", "content": "Make these drink intructions more clear and add steps. Do not add titles and ingredients list. Keep it very short and add a newline character to each step: " + instructions},
+    ],
+  };
+
+    const API_KEY = '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'
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + API_KEY,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(''),
+        body: JSON.stringify(apiRequestBody),
     });
 
-    return response.json();
+    const json = await response.json();
+    console.log(json);
+    return json.choices[0]?.message?.content;
 }
 
 export async function fetchCocktailsAll(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]> {

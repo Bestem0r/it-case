@@ -96,12 +96,12 @@ export default function Home() {
                   cursorClassName: styles.typewriter,
                 }}
               />
-              <h2 style={{ marginLeft: "-1em", marginTop: "0.8em", fontSize: "2rem"}}>
+              <h2 style={{ marginTop: "0.8em", fontSize: "2rem"}}>
                 Discover Cocktails with What You've Got!
               </h2>
               <button
                 onClick={scrollToIngredients}
-                style={{ marginLeft: "5em", marginTop: "3em" }}
+                style={{ marginTop: "3em" }}
                 className="buttonRounded"
               >
                 CHECK IT OUT{" "}
