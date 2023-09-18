@@ -8,7 +8,9 @@ function getRandomInt(min: number, max: number): number {
 }
 
 function pickRandomItems<T>(list: T[], n: number): T[] {
-  const result: T[] = [...list];
+  return list.slice(0, n);
+
+  /*const result: T[] = [...list];
   const pickedItems: T[] = [];
 
   for (let i = result.length - 1; i >= 0 && pickedItems.length < n; i--) {
@@ -17,7 +19,7 @@ function pickRandomItems<T>(list: T[], n: number): T[] {
     pickedItems.push(result[i]);
   }
 
-  return pickedItems;
+  return pickedItems;*/
 }
 
 export async function fetchCocktailsFromIngredients(ingredients: Ingredient[], alcoholic: boolean) {

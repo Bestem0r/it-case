@@ -2,7 +2,7 @@ import {Dispatch, Fragment, useEffect, useState} from "react";
 import {Cocktail, CocktailIngredient, Ingredient} from "../constants/types";
 import {fetchCocktailsAny} from "@/api/fetchCocktails";
 import styles from "./Recipes.module.css";
-import {ArrowForward} from "react-ionicons";
+import {ArrowForward, Close} from "react-ionicons";
 import {Dialog, Transition} from "@headlessui/react";
 import {getProductsLike} from "@/api/VinmonopoletController";
 import Typewriter from "typewriter-effect";
@@ -62,7 +62,7 @@ const DrinkCard = ({
         </div>
         <p className={styles.drinkButton}>
           <span>Read more</span>
-          <ArrowForward height="24px" />
+          <ArrowForward color={'#e0466f'}  height="24px" />
         </p>
       </div>
     </div>
@@ -203,15 +203,17 @@ const DrinkModal = ({ drink, isOpen, setIsOpen, vpData }: DrinkModalProps) => {
                     </div>
                   )}
 
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                  <button
+                      style={{ position: "absolute", top: "1em", right: "1em", borderRadius: "50%" }}
+                      className="buttonIcon"
                       onClick={closeModal}
-                    >
-                      Close
-                    </button>
-                  </div>
+                  >
+                    <Close
+                        color={"#fff"}
+                        title={"Close"}
+                        height="24px"
+                        width="24px"/>
+                  </button>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
