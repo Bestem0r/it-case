@@ -1,5 +1,4 @@
 import {Cocktail, CocktailIngredient, Ingredient, RawCocktail, UnpopulatedRawCocktail} from "@/app/constants/types";
-import { abort } from "process";
 
 const API_KEY = "9973533";
 const API_URL = `https://www.thecocktaildb.com/api/json/v2/${API_KEY}/`;
@@ -74,6 +73,20 @@ async function populateCocktails(cocktails: UnpopulatedRawCocktail[]) {
   return responses.filter(response => response != null) as Cocktail[];
 }
 
+async function rewriteWithGpt(instructions: string): Promise<string> {
+    const API_KEY = ''
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + API_KEY,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(''),
+    });
+
+    return response.json();
+}
+
 export async function fetchCocktailsAll(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]> {
   const cocktails = await fetchCocktailsFromIngredients(ingredients, alcoholic);
   if (cocktails == null) return [];
@@ -106,7 +119,7 @@ export async function fetchCocktailsAny(ingredients: Ingredient[], count: number
 
   let index = 0;
   while (index < ingredientSubsets.length-1 && cocktails.length < count) {
-    const _fetchedCocktails = await fetchCocktailsFromIngredients(ingredientSubsets[index], alcoholic); 
+    const _fetchedCocktails = await fetchCocktailsFromIngredients(ingredientSubsets[index], alcoholic);
     const _cocktails = pickRandomItems(_fetchedCocktails, count - cocktails.length);
 
     for (let i = 0; i < _cocktails.length && cocktails.length < count; i++) {

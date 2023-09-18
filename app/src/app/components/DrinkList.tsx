@@ -1,10 +1,10 @@
-import { Dispatch, Fragment, useEffect, useState } from "react";
-import { Cocktail, CocktailIngredient, Ingredient } from "../constants/types";
-import { fetchCocktailsAny } from "@/api/fetchCocktails";
+import {Dispatch, Fragment, useEffect, useState} from "react";
+import {Cocktail, CocktailIngredient, Ingredient} from "../constants/types";
+import {fetchCocktailsAny} from "@/api/fetchCocktails";
 import styles from "./Recipes.module.css";
-import { ArrowForward } from "react-ionicons";
-import { Dialog, Transition } from "@headlessui/react";
-import { getProductsLike } from "@/api/VinmonopoletController";
+import {ArrowForward} from "react-ionicons";
+import {Dialog, Transition} from "@headlessui/react";
+import {getProductsLike} from "@/api/VinmonopoletController";
 
 interface AddIngredientsProps {
   generateDrinks: boolean;

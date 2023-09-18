@@ -1,10 +1,7 @@
-import { Dispatch, useEffect, useState } from "react";
-import {
-  getAllIngredients,
-  handleRemoveIngredient,
-} from "../../api/IngredientController";
-import { Ingredient } from "../constants/types";
-import { TrashOutline } from "react-ionicons";
+import {Dispatch, useEffect, useState} from "react";
+import {getAllIngredients, handleRemoveIngredient,} from "../../api/IngredientController";
+import {Ingredient} from "../constants/types";
+import {TrashOutline} from "react-ionicons";
 import styles from "./Ingredients.module.css";
 
 interface AddIngredientsProps {

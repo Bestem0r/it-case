@@ -1,15 +1,8 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { handleAddIngredient } from "../../api/IngredientController";
+import {ChangeEvent, Dispatch, useRef, useState,} from "react";
+import {handleAddIngredient} from "../../api/IngredientController";
 
 import styles from "./Ingredients.module.css";
-import { AddOutline } from "react-ionicons";
+import {AddOutline} from "react-ionicons";
 import IngredientInput from "./IngredientInput";
 
 interface AddIngredientsProps {

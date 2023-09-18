@@ -1,13 +1,6 @@
-import { Transition, Combobox } from "@headlessui/react";
-import {
-  Dispatch,
-  Fragment,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { fetchIngredients } from "@/api/fetchCocktails";
+import {Combobox, Transition} from "@headlessui/react";
+import {Dispatch, Fragment, SetStateAction, useEffect, useRef, useState,} from "react";
+import {fetchIngredients} from "@/api/fetchCocktails";
 
 type IngredientInputProps = {
   name: string;
