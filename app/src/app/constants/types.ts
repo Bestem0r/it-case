@@ -8,7 +8,7 @@ export type UnpopulatedRawCocktail = {
   idDrink: string;
   strDrink: string;
   strDrinkThumb: string;
-}
+};
 
 export type RawCocktail = UnpopulatedRawCocktail & {
   strInstructions: string;
@@ -42,16 +42,21 @@ export type RawCocktail = UnpopulatedRawCocktail & {
   strMeasure13: string;
   strMeasure14: string;
   strMeasure15: string;
-}
+};
 
 export type CocktailIngredient = {
   name: string;
   amount: string;
-}
+};
 
 export type Cocktail = {
   name: string;
   thumbnail: string;
   instructions: string;
   ingredients: CocktailIngredient[];
-}
+};
+
+export type VPData = {
+  productId: string;
+  productShortName: string;
+};

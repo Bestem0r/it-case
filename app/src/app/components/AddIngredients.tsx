@@ -1,4 +1,4 @@
-import {ChangeEvent, Dispatch, useEffect, useMemo, useRef, useState} from "react";
+import {ChangeEvent, Dispatch, useRef, useState,} from "react";
 import {handleAddIngredient} from "../../api/IngredientController";
 
 import styles from "./Ingredients.module.css";
@@ -14,7 +14,6 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
   const [name, setName] = useState("");
   const amountInput = useRef<HTMLInputElement | null>(null);
   const nameInput = useRef<HTMLInputElement | null>(null);
-
 
   function handleAmountChange(event: ChangeEvent<HTMLInputElement>) {
     setAmount(Number(event.target.value));
@@ -40,25 +39,24 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
   return (
     <>
       <div className={styles.inputContainer}>
-        <div className={styles.inputWrapper} style={{ width: "100%" }}>
+        <div className={styles.inputWrapper} style={{ flexGrow: 1 }}>
           <span className={styles.inputDescription}>Ingredient</span>
           <IngredientInput setName={setName} name={name} />
         </div>
 
-        <div className={styles.inputWrapper}>
-          <span className={styles.inputDescription}>Amount (Litre)</span>
+        <div className={styles.inputWrapper} style={{ width: "105px" }}>
+          <span className={styles.inputDescription}>Amount (liters)</span>
           <input
-            style={{ marginLeft: "4px", width: "72px" }}
             type="number"
-            placeholder="Amount"
+            min={0}
             step={0.5}
+            placeholder="0.5"
             onChange={handleAmountChange}
             ref={amountInput}
           ></input>
         </div>
-        <div style={{ width: "48px" }}>
-          <button
-            style={{ marginLeft: "8px" }}
+        <div>
+          <div
             className="buttonIcon"
             onClick={addIngredient}
           >
@@ -69,7 +67,7 @@ const AddIngredients = ({ setRefetch }: AddIngredientsProps) => {
               height="24px"
               width="24px"
             />
-          </button>
+          </div>
         </div>
       </div>
     </>

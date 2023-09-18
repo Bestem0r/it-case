@@ -22,12 +22,16 @@ function pickRandomItems<T>(list: T[], n: number): T[] {
 
 export async function fetchCocktailsFromIngredients(ingredients: Ingredient[], alcoholic: boolean) {
   const response = await fetch(`${API_URL}filter.php?i=${ingredients.map(ingredient => ingredient.name).join(',')}`);
-  return (await response.json())["drinks"] as UnpopulatedRawCocktail[];
+  const json = (await response.json())["drinks"];
+  if (json === "None Found") return [];
+  return json as UnpopulatedRawCocktail[];
 }
 
 export async function fetchCocktailFromId(id: string) {
   const response = await fetch(`${API_URL}lookup.php?i=${id}`);
-  return (await response.json())["drinks"][0] as RawCocktail;
+  const json = (await response.json())["drinks"];
+  if (json === "None Found") return null;
+  return json[0] as RawCocktail;
 }
 
 export async function fetchIngredients() {
@@ -35,8 +39,9 @@ export async function fetchIngredients() {
   return await response.json();
 }
 
-async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cocktail> {
+async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cocktail | null> {
   const data = await fetchCocktailFromId(cocktail.idDrink);
+  if (data == null) return null;
 
   return {
     name: data.strDrink,
@@ -64,29 +69,69 @@ async function populateCocktail(cocktail: UnpopulatedRawCocktail): Promise<Cockt
 
 async function populateCocktails(cocktails: UnpopulatedRawCocktail[]) {
   const promises = cocktails.map(cocktail => populateCocktail(cocktail));
-  return await Promise.all(promises);
+  const responses = await Promise.all(promises);
+  return responses.filter(response => response != null) as Cocktail[];
 }
 
 async function rewriteWithGpt(instructions: string): Promise<string> {
-  const API_KEY = ''
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": "Bearer " + API_KEY,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(''),
-  });
+    const API_KEY = ''
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + API_KEY,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(''),
+    });
 
-  return response.json();
+    return response.json();
 }
 
 export async function fetchCocktailsAll(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]> {
   const cocktails = await fetchCocktailsFromIngredients(ingredients, alcoholic);
+  if (cocktails == null) return [];
   const randomCocktails = pickRandomItems(cocktails, count);
   return populateCocktails(randomCocktails);
 }
 
 export async function fetchCocktailsAny(ingredients: Ingredient[], count: number, alcoholic: boolean = true): Promise<Cocktail[]>{
-  return fetchCocktailsAll(ingredients, count, alcoholic);
+  function getAllSubsets<T>(arr: T[]): T[][] {
+    const subsets: T[][] = [[]];
+
+    for (const element of arr) {
+      const newSubsets = subsets.map((subset) => [...subset, element]);
+      subsets.push(...newSubsets);
+    }
+
+    return subsets.sort((a, b) => b.length - a.length);
+  }
+
+  const fetchedCocktails = await fetchCocktailsFromIngredients(ingredients, alcoholic);
+  const cocktails = pickRandomItems(fetchedCocktails, count);
+
+  if (cocktails.length == count) {
+    return populateCocktails(cocktails);
+  }
+
+  const ingredientSubsets = getAllSubsets(ingredients).slice(1);
+  const drinkSet = new Set();
+  cocktails.forEach(cocktail => drinkSet.add(cocktail.idDrink));
+
+  let index = 0;
+  while (index < ingredientSubsets.length-1 && cocktails.length < count) {
+    const _fetchedCocktails = await fetchCocktailsFromIngredients(ingredientSubsets[index], alcoholic);
+    const _cocktails = pickRandomItems(_fetchedCocktails, count - cocktails.length);
+
+    for (let i = 0; i < _cocktails.length && cocktails.length < count; i++) {
+      if (drinkSet.has(_cocktails[i].idDrink)) {
+        continue;
+      }
+
+      drinkSet.add(_cocktails[i].idDrink);
+      cocktails.push(_cocktails[i]);
+    }
+    index += 1;
+  }
+
+  return populateCocktails(cocktails);
 }

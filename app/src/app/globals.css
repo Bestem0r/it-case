@@ -43,10 +43,13 @@ h3 {
     background-color: #e0466f;
     border: none;
     border-radius: 8px;
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     color: white;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 input {

@@ -69,12 +69,26 @@ export default function Home() {
               <Typewriter
                 options={{
                   strings: [
+                    "Martini",
                     "Margarita",
-                    "Moscow Mule",
                     "Mojito",
-                    "Spritz",
-                    "Mimosa",
+                    "Old Fashioned",
+                    "Manhattan",
+                    "Cosmopolitan",
+                    "Daiquiri",
+                    "Piña Colada",
+                    "Moscow Mule",
                     "Bloody Mary",
+                    "Negroni",
+                    "Whiskey Sour",
+                    "Mai Tai",
+                    "Sangria",
+                    "Caipirinha",
+                    "Tequila Sunrise",
+                    "Long Island Iced Tea",
+                    "White Russian",
+                    "Tom Collins",
+                    "Blue Lagoon"
                   ],
                   autoStart: true,
                   loop: true,
@@ -82,12 +96,12 @@ export default function Home() {
                   cursorClassName: styles.typewriter,
                 }}
               />
-              <h3 style={{ marginTop: "1em" }}>
-                Find Drink Recipes from Ingredients You Already Have
-              </h3>
+              <h2 style={{ marginLeft: "-1em", marginTop: "0.8em", fontSize: "2rem"}}>
+                Discover Cocktails with What You've Got!
+              </h2>
               <button
                 onClick={scrollToIngredients}
-                style={{ marginTop: "3em" }}
+                style={{ marginLeft: "5em", marginTop: "3em" }}
                 className="buttonRounded"
               >
                 CHECK IT OUT{" "}
@@ -95,7 +109,7 @@ export default function Home() {
             </div>
 
             <div className={styles.threeModel}>
-              <Canvas camera={{ zoom: 1.5 }}>
+              <Canvas camera={{ zoom: 1 }}>
                 <ambientLight intensity={0.5} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
                 <pointLight position={[-10, -10, -10]} />
@@ -137,7 +151,7 @@ export default function Home() {
       </div>
 
       <div className={styles.recipesContainer} ref={recipesRef}>
-        <h1>Elevate Your Evening with These Drinks.</h1>
+        <h1>Elevate Your Evening with These Drinks🍸</h1>
         <DrinkList
           generateDrinks={generateDrinks}
           setGenerateDrinks={setGenerateDrinks}

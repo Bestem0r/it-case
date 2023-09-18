@@ -35,20 +35,21 @@ const IngredientList = ({
   }
 
   return (
-    <div style={{ marginTop: "8px" }}>
+    <div style={{ marginTop: "1.5rem" }}>
       {/* {loading && "Ingredients are loading"} */}
       {ingredientList && (
         <>
           {
             ingredientList.length > 0 &&
-              <span  className={styles.inputDescription}>Your ingredients</span>
+              <span className={styles.inputDescription}>Your ingredients</span>
           }
 
           <ul className={styles.ul}>
             {ingredientList.map((ingredient: Ingredient) => {
               return (
                 <li className={styles.li} key={ingredient.id}>
-                  {ingredient.name} {ingredient.amount > 0 && " - " + ingredient.amount + " L"} {" "}
+                  {ingredient.name}{" "}
+                  {ingredient.amount > 0 && " - " + ingredient.amount + " L"}{" "}
                   <div
                     style={{
                       marginLeft: "auto",
